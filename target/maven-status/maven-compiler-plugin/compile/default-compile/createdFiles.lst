@@ -1,1 +1,9 @@
-com\mquinn\wispassist\App.class
+main\java\com\mquinn\graphing\Edge.class
+main\java\com\mquinn\graphing\IDevice.class
+main\java\com\mquinn\graphing\Link.class
+main\java\com\mquinn\graphing\Vertex.class
+main\java\com\mquinn\graphing\Device.class
+main\java\com\mquinn\graphing\IVertex.class
+main\java\com\mquinn\graphing\ILink.class
+main\java\com\mquinn\graphing\IEdge.class
+main\java\com\mquinn\wispassist\App.class

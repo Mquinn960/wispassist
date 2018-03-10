@@ -1,4 +1,4 @@
-package com.mquinn.wispassist;
+package main.java.com.mquinn.wispassist;
 
 /**
  * Hello world!
