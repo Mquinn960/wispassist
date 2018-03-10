@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class Vertex implements IVertex {
 
-    private int id;
+    protected int id;
     protected List<Edge> edgeList;
 
     @Override

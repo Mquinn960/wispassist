@@ -1,4 +1,4 @@
-package test.java.com.mquinn.wispassist;
+package com.mquinn.wispassist;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
