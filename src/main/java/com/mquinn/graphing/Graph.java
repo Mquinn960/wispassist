@@ -14,6 +14,11 @@ public abstract class Graph implements IGraph {
     }
 
     @Override
+    public Vertex getVertex(int listedVertex) {
+        return vertices.get(listedVertex);
+    }
+
+    @Override
     public void addVertex(Vertex vertex) {
         this.vertices.add(vertex);
         numVertices++;

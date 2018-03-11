@@ -11,6 +11,7 @@ public interface IGraph {
 
     void addVertex(Vertex vertex);
     void removeVertex(Vertex vertex);
+    Vertex getVertex(int listedVertex);
 
     int getNumVertices();
     int getNumEdges();

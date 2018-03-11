@@ -27,6 +27,10 @@ public class App
 
         myNetwork.addVertex(deviceOne);
 
+        System.out.println(myNetwork.getNumVertices());
+
+        System.out.println(myNetwork.getVertex(0).getID());
+
         System.out.println( "Program End" );
     }
 }
