@@ -31,4 +31,5 @@ public abstract class Vertex implements IVertex {
     public List<Edge> getEdges() {
         return edgeList;
     }
+
 }

@@ -4,6 +4,9 @@ import java.util.List;
 
 public interface IGraph {
 
+    int numVertices = 0;
+    int numEdges = 0;
+
     List<Vertex> getVertices();
 
     void addVertex(Vertex vertex);

@@ -7,7 +7,7 @@ public class GeolocationWeight implements WeightStrategy {
     @Override
     public double getEdgeWeight(Edge edge) {
         // TODO: Take lat-long of start vertex and workout distance to lat-long of end vertex
-        return 0;
+        return 10;
         // this.startVertex - this.endVertex;
     }
 }

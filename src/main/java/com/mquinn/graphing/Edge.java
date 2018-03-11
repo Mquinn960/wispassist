@@ -38,6 +38,7 @@ public abstract class Edge implements IEdge {
         }
     }
 
+    @Override
     public void setWeightStrategy (WeightStrategy weightStrategy) {
         this.weightStrategy = weightStrategy;
     }

@@ -14,10 +14,12 @@ public class Link extends Edge implements ILink {
         this.weightStrategy = weightStrategy;
     }
 
+    @Override
     public String getLinkName() {
         return linkName;
     }
 
+    @Override
     public void setLinkName(String linkName) {
         this.linkName = linkName;
     }
