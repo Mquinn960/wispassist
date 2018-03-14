@@ -7,7 +7,6 @@ import main.java.com.mquinn.wispassist.GeolocationWeight;
 import main.java.com.mquinn.wispassist.Link;
 import main.java.com.mquinn.wispassist.Network;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,8 +33,8 @@ public class App
         Link fiveToSix = new Link("Five to six", deviceFive, deviceSix, new GeolocationWeight());
         Link sixToOne = new Link("Six to one", deviceSix, deviceOne, new GeolocationWeight());
 
-        deviceTwo.addEdge(oneToTwo);
-        deviceTwo.addEdge(twoToThree);
+        System.out.println("Adding 1->2" + deviceTwo.addEdge(oneToTwo));
+        System.out.println("Adding 2->3" + deviceTwo.addEdge(twoToThree));
 
         Network myNetwork = new Network();
 
@@ -50,11 +49,7 @@ public class App
 
         System.out.println("Vertices: " + myNetwork.getVertices());
 
-        Vertex TestDevice = myNetwork.getVertex(1);
-        List<Edge> TestDeviceEdges = TestDevice.getEdges();
-
-        System.out.println( "Link twoToThree: " + oneToTwo );
-        System.out.println( "Vertices on device two: " + TestDeviceEdges.get(0) );
+        myNetwork.printNetwork();
 
         System.out.println( "Program End" );
     }
