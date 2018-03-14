@@ -1,11 +1,14 @@
 package main.java.com.mquinn.wispassist;
 
 import main.java.com.mquinn.graphing.Vertex;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Device extends Vertex implements IDevice {
 
-    static AtomicInteger newId = new AtomicInteger();
+    private static AtomicInteger newId = new AtomicInteger();
+
+    private final int id;
 
     private String deviceName;
     private boolean isSourceNode;
@@ -17,6 +20,11 @@ public class Device extends Vertex implements IDevice {
         isSourceNode = sourceNodeStatus;
         this.deviceName = deviceName;
         this.id = newId.incrementAndGet();
+    }
+
+    @Override
+    public int getID() {
+        return this.id;
     }
 
     @Override

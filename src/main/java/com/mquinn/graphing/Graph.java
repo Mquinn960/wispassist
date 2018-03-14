@@ -1,12 +1,16 @@
 package main.java.com.mquinn.graphing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Graph implements IGraph {
 
     protected List<Vertex> vertices;
     protected int numVertices;
-    protected int numEdges;
+
+    public Graph(){
+        this.vertices = new ArrayList<>();
+    }
 
     @Override
     public List<Vertex> getVertices() {
@@ -19,25 +23,30 @@ public abstract class Graph implements IGraph {
     }
 
     @Override
-    public void addVertex(Vertex vertex) {
-        this.vertices.add(vertex);
-        numVertices++;
+    public boolean addVertex(Vertex vertex) {
+        if (!vertices.contains(vertex)){
+            this.vertices.add(vertex);
+            numVertices++;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void removeVertex(Vertex vertex){
-        this.vertices.remove(vertex);
-        numVertices--;
+    public boolean removeVertex(Vertex vertex){
+        if (vertices.contains(vertex)){
+            this.vertices.remove(vertex);
+            numVertices--;
+            return true;
+        }  else {
+            return false;
+        }
     }
 
     @Override
     public int getNumVertices(){
         return this.numVertices;
-    }
-
-    @Override
-    public int getNumEdges(){
-        return this.numEdges;
     }
 
 }

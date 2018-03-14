@@ -1,8 +1,11 @@
 package main.java.com.mquinn.graphing;
 
+import main.java.com.mquinn.wispassist.GeolocationWeight;
 import main.java.com.mquinn.wispassist.WeightStrategy;
 
 public interface IEdge {
+
+    WeightStrategy weightstrategy = new GeolocationWeight();
 
     void setStartVertex(Vertex vertex);
     Vertex getStartVertex();

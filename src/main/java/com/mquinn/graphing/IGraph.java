@@ -5,15 +5,12 @@ import java.util.List;
 public interface IGraph {
 
     int numVertices = 0;
-    int numEdges = 0;
-
     List<Vertex> getVertices();
 
-    void addVertex(Vertex vertex);
-    void removeVertex(Vertex vertex);
+    boolean addVertex(Vertex vertex);
+    boolean removeVertex(Vertex vertex);
     Vertex getVertex(int listedVertex);
 
     int getNumVertices();
-    int getNumEdges();
 
 }

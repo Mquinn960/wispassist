@@ -9,6 +9,12 @@ public abstract class Edge implements IEdge {
     protected WeightStrategy weightStrategy;
     protected double weight;
 
+    public Edge(Vertex startVertex, Vertex endVertex, WeightStrategy weightStrategy){
+        this.startVertex = startVertex;
+        this.endVertex = endVertex;
+        this.weightStrategy = weightStrategy;
+    }
+
     @Override
     public void setStartVertex(Vertex vertex) {
         this.startVertex = vertex;

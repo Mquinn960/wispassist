@@ -1,30 +1,34 @@
 package main.java.com.mquinn.graphing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Vertex implements IVertex {
 
-    protected int id;
     protected List<Edge> edgeList;
 
-    @Override
-    public int getID() {
-        return this.id;
+    public Vertex(){
+        this.edgeList = new ArrayList<>();
     }
 
     @Override
-    public void setID(int newId) {
-        this.id = newId;
+    public boolean addEdge(Edge newEdge){
+        if (newEdge.startVertex == this){
+            this.edgeList.add(newEdge);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void addEdge(Edge newEdge){
-        this.edgeList.add(newEdge);
-    }
-
-    @Override
-    public void removeEdge(Edge oldEdge){
-        this.edgeList.remove(oldEdge);
+    public boolean removeEdge(Edge oldEdge){
+        if (oldEdge.startVertex == this){
+            this.edgeList.remove(oldEdge);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

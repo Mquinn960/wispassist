@@ -8,10 +8,8 @@ public class Link extends Edge implements ILink {
     private String linkName;
 
     public Link(String linkName, Vertex startVertex, Vertex endVertex, WeightStrategy weightStrategy){
+        super(startVertex, endVertex, weightStrategy);
         this.linkName = linkName;
-        this.startVertex = startVertex;
-        this.endVertex = endVertex;
-        this.weightStrategy = weightStrategy;
     }
 
     @Override

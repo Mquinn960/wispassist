@@ -2,6 +2,8 @@ package main.java.com.mquinn.wispassist;
 
 public interface IDevice {
 
+    int getID();
+
     String getDeviceName ();
     void setDeviceName (String deviceName);
 
