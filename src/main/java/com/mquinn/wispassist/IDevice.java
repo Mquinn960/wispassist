@@ -2,6 +2,12 @@ package main.java.com.mquinn.wispassist;
 
 public interface IDevice {
 
+    int id = 0;
+    String deviceName = "";
+    boolean isSourceNode = false;
+    double latitude = 0;
+    double longitude = 0;
+
     int getID();
 
     String getDeviceName ();

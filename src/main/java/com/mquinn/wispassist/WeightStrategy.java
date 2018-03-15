@@ -4,6 +4,6 @@ import main.java.com.mquinn.graphing.Edge;
 
 public interface WeightStrategy {
 
-    double getEdgeWeight(Edge edge);
+    double calculateEdgeWeight(Edge edge);
 
 }

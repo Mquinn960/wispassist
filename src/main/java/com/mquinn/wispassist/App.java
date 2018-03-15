@@ -1,13 +1,7 @@
 package com.mquinn.wispassist;
 
-import main.java.com.mquinn.graphing.Edge;
-import main.java.com.mquinn.graphing.Vertex;
-import main.java.com.mquinn.wispassist.Device;
-import main.java.com.mquinn.wispassist.GeolocationWeight;
-import main.java.com.mquinn.wispassist.Link;
-import main.java.com.mquinn.wispassist.Network;
+import main.java.com.mquinn.wispassist.*;
 
-import java.util.List;
 
 /**
  * Hello world!
@@ -19,37 +13,43 @@ public class App
     {
         System.out.println( "Program Start" );
 
-        Device deviceOne = new Device("Start Device 1",false);
-        Device deviceTwo = new Device("End Device 1",false);
-        Device deviceThree = new Device("Start Device 2",false);
-        Device deviceFour = new Device("End Device 2",false);
-        Device deviceFive = new Device("Start Device 3",false);
-        Device deviceSix = new Device("End Device 3",false);
+        Device kilmarnockDevice = new Device("Kilmarnock",55.63211, -4.4948706,true);
+        Device ayrDevice = new Device("Ayr", 55.4589475, -4.6376457,false);
+        Device hamiltonDevice = new Device("Hamilton", 55.780579, -4.0503397,false);
+        Device glasgowDevice = new Device("Glasgow", 55.8607185, -4.281704, false);
+        Device edinburghDevice = new Device("Edinburgh", 55.9411885, -3.2753779, false);
+        Device prestwickDevice = new Device("Prestwick", 55.500032, -4.6167643,false);
 
-        Link oneToTwo = new Link("One to two", deviceOne, deviceTwo, new GeolocationWeight());
-        Link twoToThree = new Link("Two to three", deviceTwo, deviceThree, new GeolocationWeight());
-        Link threeToFour = new Link("Three to four", deviceThree, deviceFour, new GeolocationWeight());
-        Link fourToFive = new Link("Four to five", deviceFour, deviceFive, new GeolocationWeight());
-        Link fiveToSix = new Link("Five to six", deviceFive, deviceSix, new GeolocationWeight());
-        Link sixToOne = new Link("Six to one", deviceSix, deviceOne, new GeolocationWeight());
+        Link kmkToAyr = new Link(kilmarnockDevice, ayrDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
+        Link ayrToHam = new Link(ayrDevice, hamiltonDevice,  new AutoLinkNameStrategy(), new GeolocationWeight());
+        Link hamToGlas = new Link(hamiltonDevice, glasgowDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
+        Link glasToEdin = new Link(glasgowDevice, edinburghDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
+        Link edinToPwk = new Link(edinburghDevice, prestwickDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
+        Link pwkToKmk = new Link(prestwickDevice, kilmarnockDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
 
-        System.out.println("Adding 1->2" + deviceTwo.addEdge(oneToTwo));
-        System.out.println("Adding 2->3" + deviceTwo.addEdge(twoToThree));
+        Link kmkToGlas = new Link(kilmarnockDevice, glasgowDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
 
-        Network myNetwork = new Network();
+        kilmarnockDevice.addEdge(kmkToAyr);
+        ayrDevice.addEdge(ayrToHam);
+        hamiltonDevice.addEdge(hamToGlas);
+        glasgowDevice.addEdge(glasToEdin);
+        edinburghDevice.addEdge(edinToPwk);
+        prestwickDevice.addEdge(pwkToKmk);
 
-        myNetwork.addVertex(deviceOne);
-        myNetwork.addVertex(deviceTwo);
-        myNetwork.addVertex(deviceThree);
-        myNetwork.addVertex(deviceFour);
-        myNetwork.addVertex(deviceFive);
-        myNetwork.addVertex(deviceSix);
+        kilmarnockDevice.addEdge(kmkToGlas);
 
-        System.out.println("Number of Vertices: " + myNetwork.getNumVertices());
+        Network scotlandNetwork = new Network();
 
-        System.out.println("Vertices: " + myNetwork.getVertices());
+        scotlandNetwork.addVertex(kilmarnockDevice);
+        scotlandNetwork.addVertex(ayrDevice);
+        scotlandNetwork.addVertex(hamiltonDevice);
+        scotlandNetwork.addVertex(glasgowDevice);
+        scotlandNetwork.addVertex(edinburghDevice);
+        scotlandNetwork.addVertex(prestwickDevice);
 
-        myNetwork.printNetwork();
+        System.out.println("Number of Vertices: " + scotlandNetwork.getNumVertices() + "\r");
+
+        scotlandNetwork.printNetwork();
 
         System.out.println( "Program End" );
     }

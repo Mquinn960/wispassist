@@ -16,8 +16,10 @@ public class Device extends Vertex implements IDevice {
     private double latitude;
     private double longitude;
 
-    public Device (String deviceName, boolean sourceNodeStatus) {
-        isSourceNode = sourceNodeStatus;
+    public Device (String deviceName, double latitude, double longitude, boolean sourceNodeStatus) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.isSourceNode = sourceNodeStatus;
         this.deviceName = deviceName;
         this.id = newId.incrementAndGet();
     }

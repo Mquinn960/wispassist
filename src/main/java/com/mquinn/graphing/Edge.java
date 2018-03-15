@@ -13,6 +13,7 @@ public abstract class Edge implements IEdge {
         this.startVertex = startVertex;
         this.endVertex = endVertex;
         this.weightStrategy = weightStrategy;
+        this.weight = weightStrategy.calculateEdgeWeight(this);
     }
 
     @Override
@@ -51,7 +52,7 @@ public abstract class Edge implements IEdge {
 
     @Override
     public double getWeight() {
-        return this.weightStrategy.getEdgeWeight(this);
+        return this.weightStrategy.calculateEdgeWeight(this);
     }
 
 }
