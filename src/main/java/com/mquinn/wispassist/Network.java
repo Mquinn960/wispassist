@@ -8,12 +8,15 @@ import java.util.List;
 
 public class Network extends Graph implements INetwork {
 
+    private int[][] adjencencyList;
+
     public Network(){
 
     }
 
     @Override
     public void printNetwork() {
+        System.out.println("Number of Vertices: " + this.getNumVertices() + "\r");
         for (Vertex vertex : this.vertices){
             if (vertex instanceof Device){
                 System.out.println("Device Name: " + ((Device) vertex).getDeviceName());
@@ -30,4 +33,12 @@ public class Network extends Graph implements INetwork {
         }
     }
 
+    @Override
+    public int[][] getAdjacencyList() {
+        for (Vertex vertex : this.vertices) {
+
+        }
+
+        return new int[0][];
+    }
 }

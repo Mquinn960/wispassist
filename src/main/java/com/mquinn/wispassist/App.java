@@ -47,8 +47,6 @@ public class App
         scotlandNetwork.addVertex(edinburghDevice);
         scotlandNetwork.addVertex(prestwickDevice);
 
-        System.out.println("Number of Vertices: " + scotlandNetwork.getNumVertices() + "\r");
-
         scotlandNetwork.printNetwork();
 
         System.out.println( "Program End" );

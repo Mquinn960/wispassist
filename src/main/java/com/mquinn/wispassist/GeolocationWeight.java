@@ -3,6 +3,9 @@ package main.java.com.mquinn.wispassist;
 import main.java.com.mquinn.graphing.Edge;
 import main.java.com.mquinn.graphing.Vertex;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Uses the Haversine formula (great circles method) to calculate
  * the distance between the vertices of an input edge.
@@ -11,7 +14,7 @@ import main.java.com.mquinn.graphing.Vertex;
  * https://www.movable-type.co.uk/scripts/latlong.html
  *
  * @author  Matthew Quinn
- * @version %I%, %G%
+ * @version $I$, $G$
  * @since   1.0
  */
 
@@ -25,7 +28,7 @@ public class GeolocationWeight implements WeightStrategy {
      * vertices.
      *
      * @param   edge    the edge to have its weight calculated
-     * @return  <code>double</code> the distance between edge vertices in KM; otherwise returns 0
+     * @return  double  the distance between edge vertices in KM; otherwise returns 0
      * @see     Edge
      * @see     Vertex
      * @see     WeightStrategy
@@ -49,10 +52,24 @@ public class GeolocationWeight implements WeightStrategy {
 
             double angularDistRads = 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine));
 
-            return (int) Math.round(EARTH_RADIUS_AVG_KM * angularDistRads);
+            return roundEdgeWeight(EARTH_RADIUS_AVG_KM * angularDistRads,3);
         } else {
             return 0;
         }
+    }
+
+    /**
+     * Method of rounding the edge weight given by haversine calculation.
+     * Input distance is in KM, so rounding of 3 will give meters as a value after the
+     * decimal place.
+     *
+     * @param   distance        input distance to round
+     * @param   roundDigits     number of digits to round to after the decimal place
+     * @return  distance        distance in KM rounded to specified decimal places
+     */
+    private double roundEdgeWeight(double distance, int roundDigits){
+        BigDecimal roundedDistance = new BigDecimal(distance).setScale(roundDigits, RoundingMode.HALF_EVEN);
+        return roundedDistance.doubleValue();
     }
 
 }
