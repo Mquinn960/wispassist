@@ -48,6 +48,7 @@ public class App
         scotlandNetwork.addVertex(prestwickDevice);
 
         scotlandNetwork.printNetwork();
+        scotlandNetwork.printAdjMatrix();
 
         System.out.println( "Program End" );
     }

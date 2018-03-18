@@ -4,11 +4,12 @@ import main.java.com.mquinn.graphing.Edge;
 import main.java.com.mquinn.graphing.Graph;
 import main.java.com.mquinn.graphing.Vertex;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Network extends Graph implements INetwork {
 
-    private int[][] adjencencyList;
+    private int[][] adjacencyList;
 
     public Network(){
 
@@ -34,11 +35,38 @@ public class Network extends Graph implements INetwork {
     }
 
     @Override
-    public int[][] getAdjacencyList() {
-        for (Vertex vertex : this.vertices) {
-
-        }
-
-        return new int[0][];
+    public int[][] getAdjacencyMatrix() {
+        calcAdjacencyMatrix();
+        return this.adjacencyList;
     }
+
+    @Override
+    public void printAdjMatrix() {
+        calcAdjacencyMatrix();
+        System.out.println("Adjacency Matrix: ");
+        for (int[] adjList : this.adjacencyList) {
+            System.out.println(Arrays.toString(adjList));
+        }
+    }
+
+    private void calcAdjacencyMatrix() {
+        this.adjacencyList = new int[this.vertices.size()][this.vertices.size()];
+        for (int i = 0; i < this.vertices.size(); i++){
+            if(this.vertices.get(i) instanceof Device){
+                System.out.println("Device: \r");
+                System.out.println(((Device) this.vertices.get(i)).getDeviceName());
+            }
+            for (int j = 0; j < this.vertices.size(); j++){
+                if(this.vertices.get(i) instanceof Device){
+                    System.out.println("To: " + ((Device) this.vertices.get(j)).getDeviceName());
+                }
+                if (this.vertices.get(i).containsEdgeVertex("end", this.vertices.get(j))){
+                    this.adjacencyList[i][j] = 1;
+                } else {
+                    this.adjacencyList[i][j] = 0;
+                }
+            }
+        }
+    }
+
 }

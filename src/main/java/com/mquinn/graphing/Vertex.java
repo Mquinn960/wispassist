@@ -36,4 +36,23 @@ public abstract class Vertex implements IVertex {
         return edgeList;
     }
 
+    @Override
+    public boolean containsEdgeVertex(String position, Vertex vertex) {
+        boolean foundVertex = false;
+        if (position == "start"){
+            for (Edge edge : this.edgeList){
+                if (edge.getStartVertex() == vertex){
+                    foundVertex = true;
+                }
+            }
+        } else if (position == "end"){
+            for (Edge edge : this.edgeList){
+                if (edge.getEndVertex() == vertex){
+                    foundVertex = true;
+                }
+            }
+        }
+        return foundVertex;
+    }
+
 }
