@@ -38,7 +38,7 @@ public class App
 
         kilmarnockDevice.addEdge(kmkToGlas);
 
-        Network scotlandNetwork = new Network();
+        Network scotlandNetwork = new Network(new GraphAdjacencyMatrixStrategy());
 
         scotlandNetwork.addVertex(kilmarnockDevice);
         scotlandNetwork.addVertex(ayrDevice);
@@ -48,8 +48,8 @@ public class App
         scotlandNetwork.addVertex(prestwickDevice);
 
         scotlandNetwork.printNetwork();
-        scotlandNetwork.printAdjMatrix();
+        scotlandNetwork.printAdjMatrix(false);
 
-        System.out.println( "Program End" );
+        System.out.println("Program End");
     }
 }

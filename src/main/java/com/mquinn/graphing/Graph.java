@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class Graph implements IGraph {
 
-    protected List<Vertex> vertices;
+    public List<Vertex> vertices;
     protected int numVertices;
 
     public Graph(){

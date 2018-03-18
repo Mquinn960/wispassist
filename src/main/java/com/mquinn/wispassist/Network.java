@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Network extends Graph implements INetwork {
 
-    private int[][] adjacencyList;
+    private AdjacencyMatrixStrategy adjMatrixStrategy;
 
-    public Network(){
-
+    public Network(AdjacencyMatrixStrategy adjMatrixStrategy){
+        this.adjMatrixStrategy = adjMatrixStrategy;
     }
 
     @Override
@@ -35,37 +35,20 @@ public class Network extends Graph implements INetwork {
     }
 
     @Override
-    public int[][] getAdjacencyMatrix() {
-        calcAdjacencyMatrix();
-        return this.adjacencyList;
+    public int[][] getAdjacencyMatrix(boolean printSteps) {
+        return this.adjMatrixStrategy.calcAdjacencyMatrix(this, printSteps);
     }
 
     @Override
-    public void printAdjMatrix() {
-        calcAdjacencyMatrix();
-        System.out.println("Adjacency Matrix: ");
-        for (int[] adjList : this.adjacencyList) {
-            System.out.println(Arrays.toString(adjList));
-        }
+    public void setAdjacencyMatrixStrategy(AdjacencyMatrixStrategy adjMatrixStrategy) {
+        this.adjMatrixStrategy = adjMatrixStrategy;
     }
 
-    private void calcAdjacencyMatrix() {
-        this.adjacencyList = new int[this.vertices.size()][this.vertices.size()];
-        for (int i = 0; i < this.vertices.size(); i++){
-            if(this.vertices.get(i) instanceof Device){
-                System.out.println("Device: \r");
-                System.out.println(((Device) this.vertices.get(i)).getDeviceName());
-            }
-            for (int j = 0; j < this.vertices.size(); j++){
-                if(this.vertices.get(i) instanceof Device){
-                    System.out.println("To: " + ((Device) this.vertices.get(j)).getDeviceName());
-                }
-                if (this.vertices.get(i).containsEdgeVertex("end", this.vertices.get(j))){
-                    this.adjacencyList[i][j] = 1;
-                } else {
-                    this.adjacencyList[i][j] = 0;
-                }
-            }
+    @Override
+    public void printAdjMatrix(boolean printSteps) {
+        System.out.println("Adjacency Matrix: ");
+        for (int[] adjMatrix : this.adjMatrixStrategy.calcAdjacencyMatrix(this, printSteps)) {
+            System.out.println(Arrays.toString(adjMatrix));
         }
     }
 
