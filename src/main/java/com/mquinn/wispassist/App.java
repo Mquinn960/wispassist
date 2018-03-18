@@ -43,6 +43,7 @@ public class App
 
         scotlandNetwork.printNetwork();
         scotlandNetwork.printAdjMatrix(false);
+        System.out.println(scotlandNetwork.calculatePath(kilmarnockDevice,ayrDevice));
 
         System.out.println("Program End");
     }
