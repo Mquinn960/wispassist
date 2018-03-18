@@ -1,6 +1,6 @@
 package main.java.com.mquinn.wispassist;
 
-public class GraphAdjacencyMatrixStrategy implements AdjacencyMatrixStrategy {
+public class GraphAdjacencyMatrixStrategy implements IAdjacencyMatrixStrategy {
 
     @Override
     public int[][] calcAdjacencyMatrix(Network network, boolean printSteps) {
@@ -18,8 +18,8 @@ public class GraphAdjacencyMatrixStrategy implements AdjacencyMatrixStrategy {
                         System.out.println("To: " + ((Device) network.vertices.get(j)).getDeviceName() + "\r");
                     }
                 }
-                if (network.vertices.get(i).containsEdgeVertex("end", network.vertices.get(j))
-                        || network.vertices.get(j).containsEdgeVertex("end", network.vertices.get(i))){
+                if (network.vertices.get(i).containsEdgeWithVertex("end", network.vertices.get(j))
+                        || network.vertices.get(j).containsEdgeWithVertex("end", network.vertices.get(i))){
                     if (printSteps){
                         System.out.println("--> Connected");
                     }

@@ -7,9 +7,9 @@ public class Link extends Edge implements ILink {
 
     private String linkName;
 
-    public Link(Vertex startVertex, Vertex endVertex, LinkNameStrategy linkNameStrategy, WeightStrategy weightStrategy){
-        super(startVertex, endVertex, weightStrategy);
-        this.linkName = linkNameStrategy.generateLinkName(this);
+    public Link(Vertex startVertex, Vertex endVertex, ILinkNameStrategy ILinkNameStrategy, IWeightStrategy IWeightStrategy){
+        super(startVertex, endVertex, IWeightStrategy);
+        this.linkName = ILinkNameStrategy.generateLinkName(this);
     }
 
     @Override

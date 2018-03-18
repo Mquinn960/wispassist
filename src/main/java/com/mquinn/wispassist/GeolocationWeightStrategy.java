@@ -14,11 +14,10 @@ import java.math.RoundingMode;
  * https://www.movable-type.co.uk/scripts/latlong.html
  *
  * @author  Matthew Quinn
- * @version $I$, $G$
  * @since   1.0
  */
 
-public class GeolocationWeight implements WeightStrategy {
+public class GeolocationWeightStrategy implements IWeightStrategy {
 
     private final static double EARTH_RADIUS_AVG_KM = 6371;
 
@@ -31,7 +30,7 @@ public class GeolocationWeight implements WeightStrategy {
      * @return  double  the distance between edge vertices in KM; otherwise returns 0
      * @see     Edge
      * @see     Vertex
-     * @see     WeightStrategy
+     * @see     IWeightStrategy
      */
 
     @Override

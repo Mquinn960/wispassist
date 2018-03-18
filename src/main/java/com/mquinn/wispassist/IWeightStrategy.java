@@ -2,7 +2,7 @@ package main.java.com.mquinn.wispassist;
 
 import main.java.com.mquinn.graphing.Edge;
 
-public interface WeightStrategy {
+public interface IWeightStrategy {
 
     double calculateEdgeWeight(Edge edge);
 

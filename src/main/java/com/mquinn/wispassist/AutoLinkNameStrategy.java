@@ -1,6 +1,6 @@
 package main.java.com.mquinn.wispassist;
 
-public class AutoLinkNameStrategy implements LinkNameStrategy {
+public class AutoLinkNameStrategy implements ILinkNameStrategy {
 
     @Override
     public String generateLinkName(Link link) {

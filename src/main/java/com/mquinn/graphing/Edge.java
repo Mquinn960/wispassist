@@ -1,19 +1,19 @@
 package main.java.com.mquinn.graphing;
 
-import main.java.com.mquinn.wispassist.WeightStrategy;
+import main.java.com.mquinn.wispassist.IWeightStrategy;
 
 public abstract class Edge implements IEdge {
 
     protected Vertex startVertex;
     protected Vertex endVertex;
-    protected WeightStrategy weightStrategy;
+    protected IWeightStrategy IWeightStrategy;
     protected double weight;
 
-    public Edge(Vertex startVertex, Vertex endVertex, WeightStrategy weightStrategy){
+    public Edge(Vertex startVertex, Vertex endVertex, IWeightStrategy IWeightStrategy){
         this.startVertex = startVertex;
         this.endVertex = endVertex;
-        this.weightStrategy = weightStrategy;
-        this.weight = weightStrategy.calculateEdgeWeight(this);
+        this.IWeightStrategy = IWeightStrategy;
+        this.weight = IWeightStrategy.calculateEdgeWeight(this);
     }
 
     @Override
@@ -46,13 +46,13 @@ public abstract class Edge implements IEdge {
     }
 
     @Override
-    public void setWeightStrategy (WeightStrategy weightStrategy) {
-        this.weightStrategy = weightStrategy;
+    public void setIWeightStrategy(IWeightStrategy IWeightStrategy) {
+        this.IWeightStrategy = IWeightStrategy;
     }
 
     @Override
     public double getWeight() {
-        return this.weightStrategy.calculateEdgeWeight(this);
+        return this.IWeightStrategy.calculateEdgeWeight(this);
     }
 
 }

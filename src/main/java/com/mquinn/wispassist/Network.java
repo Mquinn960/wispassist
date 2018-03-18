@@ -5,14 +5,17 @@ import main.java.com.mquinn.graphing.Graph;
 import main.java.com.mquinn.graphing.Vertex;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Network extends Graph implements INetwork {
 
-    private AdjacencyMatrixStrategy adjMatrixStrategy;
+    private IAdjacencyMatrixStrategy adjMatrixStrategy;
+    private IPathfindingStrategy pathfindingStrategy;
 
-    public Network(AdjacencyMatrixStrategy adjMatrixStrategy){
+    public Network(IAdjacencyMatrixStrategy adjMatrixStrategy, IPathfindingStrategy pathfindingStrategy){
         this.adjMatrixStrategy = adjMatrixStrategy;
+        this.pathfindingStrategy = pathfindingStrategy;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class Network extends Graph implements INetwork {
     }
 
     @Override
-    public void setAdjacencyMatrixStrategy(AdjacencyMatrixStrategy adjMatrixStrategy) {
+    public void setAdjacencyMatrixStrategy(IAdjacencyMatrixStrategy adjMatrixStrategy) {
         this.adjMatrixStrategy = adjMatrixStrategy;
     }
 
@@ -50,6 +53,16 @@ public class Network extends Graph implements INetwork {
         for (int[] adjMatrix : this.adjMatrixStrategy.calcAdjacencyMatrix(this, printSteps)) {
             System.out.println(Arrays.toString(adjMatrix));
         }
+    }
+
+    @Override
+    public void setPathfindingStrategy(IPathfindingStrategy pathfindingStrategy) {
+        this.pathfindingStrategy = pathfindingStrategy;
+    }
+
+    @Override
+    public LinkedList<Vertex> calculatePath(Vertex startVertex, Vertex endVertex) {
+        return this.pathfindingStrategy.calculatePath(this, startVertex, endVertex);
     }
 
 }

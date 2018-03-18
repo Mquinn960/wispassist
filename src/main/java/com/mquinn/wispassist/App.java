@@ -19,26 +19,19 @@ public class App
         Device glasgowDevice = new Device("Glasgow", 55.8607185, -4.281704, false);
         Device edinburghDevice = new Device("Edinburgh", 55.9411885, -3.2753779, false);
         Device prestwickDevice = new Device("Prestwick", 55.500032, -4.6167643,false);
+        Device cumnockDevice = new Device("Cumnock", 55.4521378, -4.2740314, false);
 
-        Link kmkToAyr = new Link(kilmarnockDevice, ayrDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
-        Link ayrToHam = new Link(ayrDevice, hamiltonDevice,  new AutoLinkNameStrategy(), new GeolocationWeight());
-        Link hamToGlas = new Link(hamiltonDevice, glasgowDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
-        Link glasToEdin = new Link(glasgowDevice, edinburghDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
-        Link edinToPwk = new Link(edinburghDevice, prestwickDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
-        Link pwkToKmk = new Link(prestwickDevice, kilmarnockDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
+        kilmarnockDevice.addEdge(new Link(kilmarnockDevice, ayrDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
+        kilmarnockDevice.addEdge(new Link(kilmarnockDevice, glasgowDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
+        ayrDevice.addEdge(new Link(ayrDevice, hamiltonDevice,  new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
+        hamiltonDevice.addEdge(new Link(hamiltonDevice, glasgowDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
+        glasgowDevice.addEdge(new Link(glasgowDevice, edinburghDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
+        edinburghDevice.addEdge(new Link(edinburghDevice, prestwickDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
+        prestwickDevice.addEdge(new Link(prestwickDevice, kilmarnockDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
+        cumnockDevice.addEdge(new Link(cumnockDevice, glasgowDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
+        prestwickDevice.addEdge(new Link(prestwickDevice, cumnockDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
 
-        Link kmkToGlas = new Link(kilmarnockDevice, glasgowDevice, new AutoLinkNameStrategy(), new GeolocationWeight());
-
-        kilmarnockDevice.addEdge(kmkToAyr);
-        ayrDevice.addEdge(ayrToHam);
-        hamiltonDevice.addEdge(hamToGlas);
-        glasgowDevice.addEdge(glasToEdin);
-        edinburghDevice.addEdge(edinToPwk);
-        prestwickDevice.addEdge(pwkToKmk);
-
-        kilmarnockDevice.addEdge(kmkToGlas);
-
-        Network scotlandNetwork = new Network(new GraphAdjacencyMatrixStrategy());
+        Network scotlandNetwork = new Network(new DigraphAdjacencyMatrixStrategy(), new DijkstraPathfindingStrategy());
 
         scotlandNetwork.addVertex(kilmarnockDevice);
         scotlandNetwork.addVertex(ayrDevice);
@@ -46,6 +39,7 @@ public class App
         scotlandNetwork.addVertex(glasgowDevice);
         scotlandNetwork.addVertex(edinburghDevice);
         scotlandNetwork.addVertex(prestwickDevice);
+        scotlandNetwork.addVertex(cumnockDevice);
 
         scotlandNetwork.printNetwork();
         scotlandNetwork.printAdjMatrix(false);

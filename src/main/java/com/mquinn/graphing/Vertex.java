@@ -37,15 +37,15 @@ public abstract class Vertex implements IVertex {
     }
 
     @Override
-    public boolean containsEdgeVertex(String position, Vertex vertex) {
+    public boolean containsEdgeWithVertex(String position, Vertex vertex) {
         boolean foundVertex = false;
-        if (position == "start"){
+        if (position.equals("start")){
             for (Edge edge : this.edgeList){
                 if (edge.getStartVertex() == vertex){
                     foundVertex = true;
                 }
             }
-        } else if (position == "end"){
+        } else if (position.equals("end")){
             for (Edge edge : this.edgeList){
                 if (edge.getEndVertex() == vertex){
                     foundVertex = true;
@@ -53,6 +53,16 @@ public abstract class Vertex implements IVertex {
             }
         }
         return foundVertex;
+    }
+
+    @Override
+    public Edge getEdgeWithLowestWeight() {
+        for (Edge edge : this.getEdges()){
+            if (edge.getWeight() < resultEdge.getWeight() ){
+
+            }
+        }
+        return resultEdge;
     }
 
 }

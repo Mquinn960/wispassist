@@ -1,6 +1,6 @@
 package main.java.com.mquinn.wispassist;
 
-public interface LinkNameStrategy {
+public interface ILinkNameStrategy {
 
     String generateLinkName(Link link);
 
