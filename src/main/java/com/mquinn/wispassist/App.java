@@ -1,6 +1,9 @@
 package com.mquinn.wispassist;
 
+import main.java.com.mquinn.graphing.Vertex;
 import main.java.com.mquinn.wispassist.*;
+
+import java.util.LinkedList;
 
 
 /**
@@ -43,7 +46,16 @@ public class App
 
         scotlandNetwork.printNetwork();
         scotlandNetwork.printAdjMatrix(false);
-        System.out.println(scotlandNetwork.calculatePath(kilmarnockDevice,ayrDevice));
+
+        LinkedList<Vertex> path = scotlandNetwork.calculatePath(cumnockDevice,prestwickDevice);
+
+        System.out.println("Shortest Path" + "\r");
+        for (Vertex vertex : path){
+            if (vertex instanceof Device){
+                System.out.println(((Device) vertex).getDeviceName() + "\r");
+                System.out.println(((Device) vertex).getDistanceFromSource() + "\r");
+            }
+        }
 
         System.out.println("Program End");
     }

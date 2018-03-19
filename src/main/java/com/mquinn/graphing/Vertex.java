@@ -5,10 +5,12 @@ import java.util.List;
 
 public abstract class Vertex implements IVertex {
 
-    protected List<Edge> edgeList;
+    private List<Edge> edgeList;
+    private double distanceFromSource;
 
     public Vertex(){
         this.edgeList = new ArrayList<>();
+        this.distanceFromSource = 0;
     }
 
     @Override
@@ -66,4 +68,13 @@ public abstract class Vertex implements IVertex {
         return resultEdge;
     }
 
+    @Override
+    public double getDistanceFromSource() {
+        return distanceFromSource;
+    }
+
+    @Override
+    public void setDistanceFromSource(double distanceFromSource) {
+        this.distanceFromSource = distanceFromSource;
+    }
 }

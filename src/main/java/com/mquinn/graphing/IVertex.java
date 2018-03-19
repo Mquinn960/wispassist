@@ -11,4 +11,7 @@ public interface IVertex {
     boolean containsEdgeWithVertex(String position, Vertex vertex);
     Edge getEdgeWithLowestWeight();
 
+    double getDistanceFromSource();
+    void setDistanceFromSource(double distanceFromSource);
+
 }
