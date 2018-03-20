@@ -61,7 +61,7 @@ public class Network extends Graph implements INetwork {
     }
 
     @Override
-    public LinkedList<Vertex> calculatePath(Vertex startVertex, Vertex endVertex) {
+    public ShortestPath calculatePath(Vertex startVertex, Vertex endVertex) {
         return this.pathfindingStrategy.calculatePath(this, startVertex, endVertex);
     }
 

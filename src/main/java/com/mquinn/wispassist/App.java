@@ -3,6 +3,7 @@ package com.mquinn.wispassist;
 import main.java.com.mquinn.graphing.Vertex;
 import main.java.com.mquinn.wispassist.*;
 
+import javax.net.ssl.SNIHostName;
 import java.util.LinkedList;
 
 
@@ -47,15 +48,8 @@ public class App
         scotlandNetwork.printNetwork();
         scotlandNetwork.printAdjMatrix(false);
 
-        LinkedList<Vertex> path = scotlandNetwork.calculatePath(cumnockDevice,prestwickDevice);
-
-        System.out.println("Shortest Path" + "\r");
-        for (Vertex vertex : path){
-            if (vertex instanceof Device){
-                System.out.println(((Device) vertex).getDeviceName() + "\r");
-                System.out.println(((Device) vertex).getDistanceFromSource() + "\r");
-            }
-        }
+        ShortestPath path = scotlandNetwork.calculatePath(glasgowDevice,cumnockDevice);
+        path.printPath();
 
         System.out.println("Program End");
     }

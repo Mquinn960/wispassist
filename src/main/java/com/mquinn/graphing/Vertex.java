@@ -15,7 +15,7 @@ public abstract class Vertex implements IVertex {
 
     @Override
     public boolean addEdge(Edge newEdge){
-        if (newEdge.startVertex == this){
+        if (newEdge.startVertex == this && !edgeList.contains(newEdge)){
             this.edgeList.add(newEdge);
             return true;
         } else {
@@ -25,7 +25,7 @@ public abstract class Vertex implements IVertex {
 
     @Override
     public boolean removeEdge(Edge oldEdge){
-        if (oldEdge.startVertex == this){
+        if (oldEdge.startVertex == this && edgeList.contains(oldEdge)){
             this.edgeList.remove(oldEdge);
             return true;
         } else {

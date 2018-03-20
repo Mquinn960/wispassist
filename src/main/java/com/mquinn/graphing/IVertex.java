@@ -8,6 +8,7 @@ public interface IVertex {
 
     boolean addEdge(Edge edge);
     boolean removeEdge(Edge edge);
+
     boolean containsEdgeWithVertex(String position, Vertex vertex);
     Edge getEdgeWithLowestWeight();
 

@@ -11,6 +11,6 @@ public interface INetwork {
     int[][] getAdjacencyMatrix(boolean printSteps);
     void setAdjacencyMatrixStrategy(IAdjacencyMatrixStrategy adjMatrixStrategy);
     void setPathfindingStrategy(IPathfindingStrategy pathfindingStrategy);
-    LinkedList<Vertex> calculatePath(Vertex startVertex, Vertex endVertex);
+    ShortestPath calculatePath(Vertex startVertex, Vertex endVertex);
 
 }

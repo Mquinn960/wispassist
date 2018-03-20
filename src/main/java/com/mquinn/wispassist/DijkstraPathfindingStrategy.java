@@ -12,7 +12,7 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
     private Vertex currentVertex = new Vertex(){};
 
     @Override
-    public LinkedList<Vertex> calculatePath(Network network, Vertex startVertex, Vertex endVertex) {
+    public ShortestPath calculatePath(Network network, Vertex startVertex, Vertex endVertex) {
 
         // Set all input non source vertex weights to "infinite"
         // Set source weight to 0
@@ -49,7 +49,7 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
         }
 
         // Return the stack of shortest path nodes to the destination
-        return this.shortestPath;
+        return new ShortestPath(this.shortestPath, startVertex, endVertex);
 
     }
 
