@@ -5,7 +5,6 @@ import main.java.com.mquinn.graphing.Graph;
 import main.java.com.mquinn.graphing.Vertex;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Network extends Graph implements INetwork {

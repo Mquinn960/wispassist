@@ -1,11 +1,4 @@
-package com.mquinn.wispassist;
-
-import main.java.com.mquinn.graphing.Vertex;
-import main.java.com.mquinn.wispassist.*;
-
-import javax.net.ssl.SNIHostName;
-import java.util.LinkedList;
-
+package main.java.com.mquinn.wispassist;
 
 /**
  * Hello world!
