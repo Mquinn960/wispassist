@@ -8,6 +8,11 @@ public abstract class Graph implements IGraph {
     public List<Vertex> vertices;
     protected int numVertices;
 
+    @Override
+    public boolean containsVertex(Vertex vertex) {
+        return this.vertices.contains(vertex);
+    }
+
     public Graph(){
         this.vertices = new ArrayList<>();
     }

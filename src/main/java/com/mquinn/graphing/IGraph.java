@@ -9,6 +9,7 @@ public interface IGraph {
 
     boolean addVertex(Vertex vertex);
     boolean removeVertex(Vertex vertex);
+    boolean containsVertex(Vertex vertex);
     Vertex getVertex(int listedVertex);
 
     int getNumVertices();

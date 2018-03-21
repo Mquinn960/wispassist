@@ -14,6 +14,11 @@ public abstract class Vertex implements IVertex {
     }
 
     @Override
+    public void purge() {
+        this.edgeList.clear();
+    }
+
+    @Override
     public boolean addEdge(Edge newEdge){
         if (newEdge.startVertex == this && !edgeList.contains(newEdge)){
             this.edgeList.add(newEdge);

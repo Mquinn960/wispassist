@@ -28,7 +28,7 @@ public class App
         cumnockDevice.addEdge(new Link(cumnockDevice, glasgowDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
         prestwickDevice.addEdge(new Link(prestwickDevice, cumnockDevice, new AutoLinkNameStrategy(), new GeolocationWeightStrategy()));
 
-        Network scotlandNetwork = new Network(new DigraphAdjacencyMatrixStrategy(), new DijkstraPathfindingStrategy());
+        Network scotlandNetwork = new Network(new DigraphAdjacencyMatrixStrategy(), new DijkstraPathfindingStrategy(), new KruskalMinimumSpanningTreeStrategy());
 
         scotlandNetwork.addVertex(kilmarnockDevice);
         scotlandNetwork.addVertex(ayrDevice);
@@ -43,6 +43,9 @@ public class App
 
         ShortestPath path = scotlandNetwork.calculatePath(glasgowDevice,cumnockDevice);
         path.printPath();
+
+        Network minimumSpanningTree = scotlandNetwork.calculateSpanningTree();
+        minimumSpanningTree.printNetwork();
 
         System.out.println("Program End");
     }
