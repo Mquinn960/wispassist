@@ -2,12 +2,16 @@ package main.java.com.mquinn.wispassist.planning.networking.network;
 
 import main.java.com.mquinn.wispassist.planning.graphing.Edge;
 import main.java.com.mquinn.wispassist.planning.graphing.Vertex;
+import main.java.com.mquinn.wispassist.planning.networking.link.GeolocationWeightStrategy;
 
+import java.net.Inet4Address;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
 
     private LinkedList<Vertex> provisionalVertices = new LinkedList<>();
+    private LinkedList<Vertex> dijkstraTree = new LinkedList<>();
     private LinkedList<Vertex> shortestPath = new LinkedList<>();
     private Vertex currentVertex = new Vertex(){};
     private Vertex nextAdjacentVertex = new Vertex(){};
@@ -26,12 +30,10 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
         // Set all input non source vertex weights to "infinite"
         // Set source weight to 0
         for (Vertex vertex : network.vertices){
+            // To simulate undirected graphs, add edges opposite to current edges
             if (!this.isDirected) {
                 for (Edge edge : vertex.getEdges()) {
-                    Edge newEdge = edge;
-                    newEdge.replaceVertex(newEdge.getStartVertex(), edge.getEndVertex());
-                    newEdge.replaceVertex(newEdge.getEndVertex(), edge.getStartVertex());
-                    edge.getStartVertex().addEdge(newEdge);
+                    edge.getEndVertex().addEdge(new Edge(edge.getEndVertex(), edge.getStartVertex(), new GeolocationWeightStrategy()){});
                 }
             }
             this.provisionalVertices.add(vertex);
@@ -43,15 +45,15 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
         }
 
         // While there are vertices to analyse and we have not already reached our destination
-        while (!this.provisionalVertices.isEmpty() && !this.currentVertex.equals(endVertex)) {
+        while (!this.provisionalVertices.isEmpty() && !this.currentVertex.equals(this.endVertex) && !this.dijkstraTree.contains(this.endVertex)) {
 
             // Take the first provisional vertex with the lowest distance from source
             this.currentVertex = getClosestProvisionalVertexToSource();
 
-            if (!this.currentVertex.equals(endVertex) && !this.nextAdjacentVertex.equals(endVertex)){
+            if (!this.currentVertex.equals(this.endVertex) && !this.nextAdjacentVertex.equals(this.endVertex)){
                 // Mark this vertex as traversed by moving from the provisional queue to the final stack
                 this.provisionalVertices.remove(this.currentVertex);
-                this.shortestPath.add(this.currentVertex);
+                this.dijkstraTree.add(this.currentVertex);
 
                 // For all the adjacent vertices to the current one
                 for (Edge edge : this.currentVertex.getEdges()){
@@ -62,18 +64,45 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
                     if ((this.currentVertex.getDistanceFromSource() + edge.getWeight()) < this.nextAdjacentVertex.getDistanceFromSource()){
                         // Update the next adjacent vertex's weight
                         this.nextAdjacentVertex.setDistanceFromSource(this.currentVertex.getDistanceFromSource() + edge.getWeight());
+                        this.nextAdjacentVertex.setPreviousVertex(this.currentVertex);
                     }
                 }
             } else {
                 this.provisionalVertices.remove(this.currentVertex);
-                this.shortestPath.add(this.currentVertex);
+                this.dijkstraTree.add(this.currentVertex);
             }
 
         }
 
         // Return the stack of shortest path nodes to the destination
-        return new ShortestPath(this.shortestPath, startVertex, endVertex);
+        return assemblePath(this.dijkstraTree.getLast());
 
+    }
+
+    private ShortestPath assemblePath(Vertex destination){
+        this.shortestPath.add(destination);
+        addPreviousVertex(destination);
+        this.shortestPath = reversePath(this.shortestPath);
+        return new ShortestPath(this.shortestPath);
+    }
+
+    private void addPreviousVertex(Vertex vertex){
+        this.shortestPath.add(vertex.getPreviousVertex());
+        if (vertex.getPreviousVertex() != null){
+            addPreviousVertex(vertex.getPreviousVertex());
+        }
+    }
+
+    private LinkedList<Vertex> reversePath(LinkedList<Vertex> shortestPath){
+        LinkedList<Vertex> newShortestPath = new LinkedList<Vertex>(){};
+
+        Iterator<Vertex> pathWalker = this.shortestPath.descendingIterator();
+
+        while (pathWalker.hasNext()){
+            newShortestPath.add(pathWalker.next());
+        }
+
+        return newShortestPath;
     }
 
     // Helper method to get the lowest distance from source node from the provisional queue
@@ -86,13 +115,16 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
             // For each provisionally listed vertex
             for (Vertex vertex : this.provisionalVertices){
                 // Update closest vertex to the closest one in the list to the source
-                if (!this.shortestPath.contains(vertex)){
-                    if (vertex.getDistanceFromSource() < closest.getDistanceFromSource()){
-                        closest = vertex;
+                if (!this.dijkstraTree.contains(vertex)) {
+                    // Jump out early if the destination is found
+                    if (vertex.equals(endVertex) && vertex.getDistanceFromSource() != Integer.MAX_VALUE) {
+                        return vertex;
+                    } else {
+                        // Else incrementally update the closest vertex
+                        if (vertex.getDistanceFromSource() < closest.getDistanceFromSource()) {
+                            closest = vertex;
+                        }
                     }
-                }
-                if (vertex.equals(this.endVertex)){
-                    closest = this.endVertex;
                 }
             }
             return closest;

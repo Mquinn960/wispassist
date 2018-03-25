@@ -7,6 +7,7 @@ public abstract class Vertex implements IVertex {
 
     private List<Edge> edgeList;
     private double distanceFromSource;
+    private Vertex previousVertex;
 
     public Vertex(){
         this.edgeList = new ArrayList<>();
@@ -70,5 +71,13 @@ public abstract class Vertex implements IVertex {
     @Override
     public void setDistanceFromSource(double distanceFromSource) {
         this.distanceFromSource = distanceFromSource;
+    }
+
+    public Vertex getPreviousVertex() {
+        return previousVertex;
+    }
+
+    public void setPreviousVertex(Vertex previousVertex) {
+        this.previousVertex = previousVertex;
     }
 }

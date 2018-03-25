@@ -62,7 +62,7 @@ public class App
         scotlandNetwork.printAdjMatrix(false);
 
         // Calculate and print shortest path between two nodes
-        ShortestPath path = scotlandNetwork.calculatePath(glasgowDevice,cumnockDevice);
+        ShortestPath path = scotlandNetwork.calculatePath(glasgowDevice,ayrDevice);
         path.printPath();
 
         // Calculate and print minimum spanning tree
