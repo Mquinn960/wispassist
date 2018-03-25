@@ -15,7 +15,7 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
         // TODO: Represent network as an undirected graph first, edge and vertex list
 
         this.inputNetwork = network;
-        this.spanningTree = new Network(new DirectedAdjacencyMatrixStrategy(), new UndirectedDijkstraPathfindingStrategy(), new KruskalMinimumSpanningTreeStrategy());
+        this.spanningTree = new Network(new DirectedAdjacencyMatrixStrategy(), new DijkstraPathfindingStrategy(false), new KruskalMinimumSpanningTreeStrategy());
 
         while (!this.spanningTree.vertices.containsAll(this.inputNetwork.vertices)){
             this.currentEdge = this.inputNetwork.getCheapestEdge();

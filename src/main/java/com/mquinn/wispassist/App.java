@@ -19,10 +19,10 @@ public class App
 
         PlanningService wispPlanner = new PlanningService();
 
-        Network scotlandNetwork = wispPlanner.getNetworkFactory().createNetwork("undirected");
+        Network scotlandNetwork = wispPlanner.getNetworkFactory().createNetwork("directed");
 
         // Create Devices
-        Device kilmarnockDevice = wispPlanner.getDeviceFactory().createDeviceManual("Ayr", 55.4589475, -4.6376457,
+        Device kilmarnockDevice = wispPlanner.getDeviceFactory().createDeviceManual("Kilmarnock", 55.63211, -4.4948706,
                                                                                     false);
         Device ayrDevice = wispPlanner.getDeviceFactory().createDeviceManual("Ayr", 55.4589475, -4.6376457,
                                                                              false);
@@ -38,50 +38,15 @@ public class App
                                                                                  false);
 
         // Add links between devices
-        kilmarnockDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(kilmarnockDevice,
-                                                                               ayrDevice,
-                                                                               new AutoLinkNameStrategy(),
-                                                                               new GeolocationWeightStrategy()));
-
-        kilmarnockDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(kilmarnockDevice,
-                                                                               glasgowDevice,
-                                                                               new AutoLinkNameStrategy(),
-                                                                               new GeolocationWeightStrategy()));
-
-        ayrDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(ayrDevice,
-                                                                        hamiltonDevice,
-                                                                        new AutoLinkNameStrategy(),
-                                                                        new GeolocationWeightStrategy()));
-
-        hamiltonDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(hamiltonDevice,
-                                                                             glasgowDevice,
-                                                                             new AutoLinkNameStrategy(),
-                                                                             new GeolocationWeightStrategy()));
-
-        glasgowDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(glasgowDevice,
-                                                                            edinburghDevice,
-                                                                            new AutoLinkNameStrategy(),
-                                                                            new GeolocationWeightStrategy()));
-
-        edinburghDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(edinburghDevice,
-                                                                              prestwickDevice,
-                                                                              new AutoLinkNameStrategy(),
-                                                                              new GeolocationWeightStrategy()));
-
-        prestwickDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(prestwickDevice,
-                                                                              kilmarnockDevice,
-                                                                              new AutoLinkNameStrategy(),
-                                                                              new GeolocationWeightStrategy()));
-
-        cumnockDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(cumnockDevice,
-                                                                            glasgowDevice,
-                                                                            new AutoLinkNameStrategy(),
-                                                                            new GeolocationWeightStrategy()));
-
-        prestwickDevice.addEdge(wispPlanner.getLinkFactory().createLinkManual(prestwickDevice,
-                                                                              cumnockDevice,
-                                                                              new AutoLinkNameStrategy(),
-                                                                              new GeolocationWeightStrategy()));
+        kilmarnockDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(kilmarnockDevice, ayrDevice));
+        kilmarnockDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(kilmarnockDevice, glasgowDevice));
+        ayrDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(ayrDevice, hamiltonDevice));
+        hamiltonDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(hamiltonDevice, glasgowDevice));
+        glasgowDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(glasgowDevice, edinburghDevice));
+        edinburghDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(edinburghDevice, prestwickDevice));
+        prestwickDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(prestwickDevice, kilmarnockDevice));
+        cumnockDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(cumnockDevice, glasgowDevice));
+        prestwickDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(prestwickDevice, cumnockDevice));
 
         // Add devices to network graph
         scotlandNetwork.addVertex(kilmarnockDevice);
@@ -101,8 +66,8 @@ public class App
         path.printPath();
 
         // Calculate and print minimum spanning tree
-        Network minimumSpanningTree = scotlandNetwork.calculateSpanningTree();
-        minimumSpanningTree.printNetwork();
+        //Network minimumSpanningTree = scotlandNetwork.calculateSpanningTree();
+        //minimumSpanningTree.printNetwork();
 
         System.out.println("Program End");
     }

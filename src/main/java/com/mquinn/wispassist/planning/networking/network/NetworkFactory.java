@@ -12,9 +12,9 @@ public class NetworkFactory {
 
     public Network createNetwork(String networkType){
         if (networkType.equals("directed")){
-            return new Network(new DirectedAdjacencyMatrixStrategy(), new DirectedDijkstraPathfindingStrategy(), new MinimumCostArboresenceMinimumSpanningTreeStrategy());
+            return new Network(new DirectedAdjacencyMatrixStrategy(), new DijkstraPathfindingStrategy(true), new MinimumCostArboresenceMinimumSpanningTreeStrategy());
         } else if (networkType.equals("undirected")) {
-            return new Network(new UndirectedAdjacencyMatrixStrategy(), new UndirectedDijkstraPathfindingStrategy(), new KruskalMinimumSpanningTreeStrategy());
+            return new Network(new UndirectedAdjacencyMatrixStrategy(), new DijkstraPathfindingStrategy(false), new KruskalMinimumSpanningTreeStrategy());
         }
         return null;
     }
