@@ -12,12 +12,13 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
     @Override
     public Network calculateSpanningTree(Network network) {
 
+        // TODO: Represent network as an undirected graph first, edge and vertex list
+
         this.inputNetwork = network;
         this.spanningTree = new Network(new DigraphAdjacencyMatrixStrategy(), new DijkstraPathfindingStrategy(), new KruskalMinimumSpanningTreeStrategy());
 
         while (!this.spanningTree.vertices.containsAll(this.inputNetwork.vertices)){
-            // TODO: fix nullpointer here
-            this.currentEdge = this.inputNetwork.getCheapestLink();
+            this.currentEdge = this.inputNetwork.getCheapestEdge();
             if (!this.spanningTree.vertices.contains(this.currentEdge.getStartVertex()) && !this.spanningTree.vertices.contains(this.currentEdge.getEndVertex())){
                 if (!this.spanningTree.vertices.contains(this.currentEdge.getStartVertex())){
                     Vertex newVertex = this.currentEdge.getStartVertex();
@@ -36,7 +37,6 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
                     newVertex.purge();
                     this.spanningTree.addVertex(newVertex);
                 }
-
             }
             this.currentEdge.getStartVertex().removeEdge(this.currentEdge);
         }

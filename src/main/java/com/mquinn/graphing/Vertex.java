@@ -63,17 +63,6 @@ public abstract class Vertex implements IVertex {
     }
 
     @Override
-    public Edge getEdgeWithLowestWeight() {
-        Edge resultEdge = this.getEdges().get(0);
-        for (Edge edge : this.getEdges()){
-            if (edge.getWeight() < resultEdge.getWeight() ){
-                resultEdge = edge;
-            }
-        }
-        return resultEdge;
-    }
-
-    @Override
     public double getDistanceFromSource() {
         return distanceFromSource;
     }

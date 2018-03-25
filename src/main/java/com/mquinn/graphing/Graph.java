@@ -7,6 +7,7 @@ public abstract class Graph implements IGraph {
 
     public List<Vertex> vertices;
     protected int numVertices;
+    Edge cheapestLink;
 
     @Override
     public boolean containsVertex(Vertex vertex) {
@@ -47,6 +48,22 @@ public abstract class Graph implements IGraph {
         }  else {
             return false;
         }
+    }
+
+    @Override
+    public Edge getCheapestEdge() {
+        double weight = Integer.MAX_VALUE;
+        for (Vertex vertex : this.vertices){
+            if (!vertex.getEdges().isEmpty()){
+                for (Edge edge : vertex.getEdges()){
+                    if (edge.getWeight() < weight){
+                        this.cheapestLink = edge;
+                        weight = this.cheapestLink.getWeight();
+                    }
+                }
+            }
+        }
+        return this.cheapestLink;
     }
 
     @Override

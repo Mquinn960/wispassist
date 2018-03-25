@@ -12,6 +12,8 @@ public interface IGraph {
     boolean containsVertex(Vertex vertex);
     Vertex getVertex(int listedVertex);
 
+    Edge getCheapestEdge();
+
     int getNumVertices();
 
 }

@@ -74,21 +74,6 @@ public class Network extends Graph implements INetwork {
         return link.getEndVertex().removeEdge(link);
     }
 
-    // TODO: Change method, not working
-    @Override
-    public Edge getCheapestLink() {
-        double weight = Integer.MAX_VALUE;
-        for (Vertex vertex : this.vertices){
-            for (Edge edge : vertex.getEdges()){
-                if (edge.getWeight() < weight){
-                    this.cheapestLink = edge;
-                    weight = this.cheapestLink.getWeight();
-                }
-            }
-        }
-        return this.cheapestLink;
-    }
-
     @Override
     public void printNetwork() {
         System.out.println("Number of Vertices: " + this.getNumVertices() + "\r");

@@ -20,6 +20,4 @@ public interface INetwork {
     boolean containsLink(Link link);
     boolean removeLink(Link link);
 
-    Edge getCheapestLink();
-
 }
