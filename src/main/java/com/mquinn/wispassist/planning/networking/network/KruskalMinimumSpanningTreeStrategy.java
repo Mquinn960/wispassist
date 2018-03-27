@@ -15,40 +15,56 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
     public Network calculateSpanningTree(Network network) {
 
         this.inputNetwork = network;
+        this.inputNetwork.makeUndirected();
+
         PlanningService planningService = new PlanningService();
         this.spanningTree = planningService.getNetworkFactory().createNetwork("undirected");
 
-        for (Vertex vertex : this.inputNetwork.vertices) {
-            for (Edge edge : vertex.getEdges()) {
-                edge.getEndVertex().addEdge(new Edge(edge.getEndVertex(), edge.getStartVertex(), new GeolocationWeightStrategy()) {
-                });
-            }
-        }
-
+        // While spanning tree does not contain all vertices from graph
         while (!this.spanningTree.vertices.containsAll(this.inputNetwork.vertices)){
+
+            // TODO: fix graph method for this, not working
+            // Choose the cheapest link from input graph
             this.currentEdge = this.inputNetwork.getCheapestEdge();
+
+            // If this cheapest link doesn't make a loop in the spanning tree
             if (!this.spanningTree.vertices.contains(this.currentEdge.getStartVertex()) && !this.spanningTree.vertices.contains(this.currentEdge.getEndVertex())){
-                if (!this.spanningTree.vertices.contains(this.currentEdge.getStartVertex())){
-                    Vertex newVertex = this.currentEdge.getStartVertex();
-                    newVertex.purge();
-                    newVertex.addEdge(this.currentEdge);
-                    this.spanningTree.addVertex(newVertex);
-                } else {
-                    for (Vertex vertex: this.spanningTree.vertices){
-                        if (vertex.equals(this.currentEdge.getStartVertex())){
-                            vertex.addEdge(this.currentEdge);
-                        }
-                    }
-                }
-                if (!this.spanningTree.vertices.contains(this.currentEdge.getEndVertex())){
-                    Vertex newVertex = this.currentEdge.getEndVertex();
-                    newVertex.purge();
-                    this.spanningTree.addVertex(newVertex);
-                }
+
+                // Add the link and its vertices to spanning tree
+                addLinkAndVertices();
             }
-            this.currentEdge.getStartVertex().removeEdge(this.currentEdge);
+            removeLinkFromInputNetwork();
         }
         return this.spanningTree;
     }
 
+    private void removeLinkFromInputNetwork(){
+        Vertex tempStartVertex = this.currentEdge.getStartVertex();
+        Vertex tempEndVertex = this.currentEdge.getEndVertex();
+
+        // Remove the link from the input network
+        // Avoid concurrent modification threading issue
+        for (Vertex vertex: this.inputNetwork.vertices){
+            if (vertex == tempStartVertex){
+                vertex.removeEdgeWithDestination(tempStartVertex);
+            }
+            if (vertex == tempEndVertex){
+                vertex.removeEdgeWithDestination(tempEndVertex);
+            }
+        }
+    }
+
+    private void addLinkAndVertices(){
+        Vertex newStartVertex = this.currentEdge.getStartVertex();
+        Vertex newEndVertex = this.currentEdge.getEndVertex();
+
+        newStartVertex.purge();
+        newStartVertex.addEdge(this.currentEdge);
+
+        newEndVertex.purge();
+        newEndVertex.addEdge(new Edge(this.currentEdge.getEndVertex(), this.currentEdge.getStartVertex(), new GeolocationWeightStrategy()) {});
+
+        this.spanningTree.addVertex(newStartVertex);
+        this.spanningTree.addVertex(newEndVertex);
+    }
 }

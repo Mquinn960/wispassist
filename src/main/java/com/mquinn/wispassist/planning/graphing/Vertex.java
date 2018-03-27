@@ -30,6 +30,15 @@ public abstract class Vertex implements IVertex {
     }
 
     @Override
+    public void removeEdgeWithDestination(Vertex vertex) {
+        for (Edge edge: this.edgeList){
+            if (edge.getEndVertex() == vertex){
+                this.removeEdge(edge);
+            }
+        }
+    }
+
+    @Override
     public boolean removeEdge(Edge oldEdge){
         if (oldEdge.startVertex == this && edgeList.contains(oldEdge)){
             this.edgeList.remove(oldEdge);

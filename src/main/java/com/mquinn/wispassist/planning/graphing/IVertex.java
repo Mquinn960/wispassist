@@ -8,6 +8,7 @@ public interface IVertex {
 
     boolean addEdge(Edge edge);
     boolean removeEdge(Edge edge);
+    void removeEdgeWithDestination(Vertex vertex);
 
     void purge();
 

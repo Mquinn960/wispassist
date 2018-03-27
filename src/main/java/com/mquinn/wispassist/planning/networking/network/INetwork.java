@@ -17,6 +17,8 @@ public interface INetwork {
     void setSpanningTreeStrategy(ISpanningTreeStrategy spanningTreeStrategy);
     Network calculateSpanningTree();
 
+    void makeUndirected();
+
     boolean containsLink(Link link);
     boolean removeLink(Link link);
 
