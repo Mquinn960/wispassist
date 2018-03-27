@@ -14,12 +14,14 @@ public class Network extends Graph implements INetwork {
     private IAdjacencyMatrixStrategy adjMatrixStrategy;
     private IPathfindingStrategy pathfindingStrategy;
     private ISpanningTreeStrategy spanningTreeStrategy;
+    private INetworkPrintStrategy networkPrintStrategy;
     private Edge cheapestLink;
 
-    public Network(IAdjacencyMatrixStrategy adjMatrixStrategy, IPathfindingStrategy pathfindingStrategy, ISpanningTreeStrategy spanningTreeStrategy){
+    public Network(IAdjacencyMatrixStrategy adjMatrixStrategy, IPathfindingStrategy pathfindingStrategy, ISpanningTreeStrategy spanningTreeStrategy, INetworkPrintStrategy networkPrintStrategy){
         this.adjMatrixStrategy = adjMatrixStrategy;
         this.pathfindingStrategy = pathfindingStrategy;
         this.spanningTreeStrategy = spanningTreeStrategy;
+        this.networkPrintStrategy = networkPrintStrategy;
     }
 
     @Override
@@ -78,21 +80,7 @@ public class Network extends Graph implements INetwork {
 
     @Override
     public void printNetwork() {
-        System.out.println("Number of Vertices: " + this.getNumVertices() + "\r");
-        for (Vertex vertex : this.vertices){
-            if (vertex instanceof Device){
-                System.out.println("Device Name: " + ((Device) vertex).getDeviceName());
-                List<Edge> edgeList = vertex.getEdges();
-                for (Edge edge : edgeList){
-                    if (edge instanceof Link){
-                        System.out.println("Link Name -> " + ((Link) edge).getLinkName());
-                        System.out.println("Destination -> " + ((Device)edge.getEndVertex()).getDeviceName());
-                        System.out.println("Link Weight -> " + edge.getWeight());
-                    }
-                }
-                System.out.println("\r");
-            }
-        }
+        this.networkPrintStrategy.printNetwork(this);
     }
 
 }

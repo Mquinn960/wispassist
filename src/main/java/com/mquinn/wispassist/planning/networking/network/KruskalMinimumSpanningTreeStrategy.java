@@ -1,7 +1,9 @@
 package main.java.com.mquinn.wispassist.planning.networking.network;
 
+import main.java.com.mquinn.wispassist.planning.PlanningService;
 import main.java.com.mquinn.wispassist.planning.graphing.Edge;
 import main.java.com.mquinn.wispassist.planning.graphing.Vertex;
+import main.java.com.mquinn.wispassist.planning.networking.link.GeolocationWeightStrategy;
 
 public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy {
 
@@ -12,10 +14,16 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
     @Override
     public Network calculateSpanningTree(Network network) {
 
-        // TODO: Represent network as an undirected graph first, edge and vertex list
-
         this.inputNetwork = network;
-        this.spanningTree = new Network(new DirectedAdjacencyMatrixStrategy(), new DijkstraPathfindingStrategy(false), new KruskalMinimumSpanningTreeStrategy());
+        PlanningService planningService = new PlanningService();
+        this.spanningTree = planningService.getNetworkFactory().createNetwork("undirected");
+
+        for (Vertex vertex : this.inputNetwork.vertices) {
+            for (Edge edge : vertex.getEdges()) {
+                edge.getEndVertex().addEdge(new Edge(edge.getEndVertex(), edge.getStartVertex(), new GeolocationWeightStrategy()) {
+                });
+            }
+        }
 
         while (!this.spanningTree.vertices.containsAll(this.inputNetwork.vertices)){
             this.currentEdge = this.inputNetwork.getCheapestEdge();

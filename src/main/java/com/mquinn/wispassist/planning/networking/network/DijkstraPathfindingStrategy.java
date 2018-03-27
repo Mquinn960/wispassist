@@ -4,7 +4,6 @@ import main.java.com.mquinn.wispassist.planning.graphing.Edge;
 import main.java.com.mquinn.wispassist.planning.graphing.Vertex;
 import main.java.com.mquinn.wispassist.planning.networking.link.GeolocationWeightStrategy;
 
-import java.net.Inet4Address;
 import java.util.Iterator;
 import java.util.LinkedList;
 

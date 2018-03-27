@@ -19,7 +19,7 @@ public class App
 
         PlanningService wispPlanner = new PlanningService();
 
-        Network scotlandNetwork = wispPlanner.getNetworkFactory().createNetwork("directed");
+        Network scotlandNetwork = wispPlanner.getNetworkFactory().createNetwork("undirected");
 
         // Create Devices
         Device kilmarnockDevice = wispPlanner.getDeviceFactory().createDeviceManual("Kilmarnock", 55.63211, -4.4948706,
@@ -66,8 +66,8 @@ public class App
         path.printPath();
 
         // Calculate and print minimum spanning tree
-        //Network minimumSpanningTree = scotlandNetwork.calculateSpanningTree();
-        //minimumSpanningTree.printNetwork();
+        Network minimumSpanningTree = scotlandNetwork.calculateSpanningTree();
+        minimumSpanningTree.printNetwork();
 
         System.out.println("Program End");
     }
