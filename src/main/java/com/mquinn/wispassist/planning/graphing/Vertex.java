@@ -8,6 +8,7 @@ public abstract class Vertex implements IVertex {
     private List<Edge> edgeList;
     private double distanceFromSource;
     private Vertex previousVertex;
+    private Edge edgeToRemove;
 
     public Vertex(){
         this.edgeList = new ArrayList<>();
@@ -29,13 +30,24 @@ public abstract class Vertex implements IVertex {
         }
     }
 
+    //TODO: Fix method, doesn't work
     @Override
     public void removeEdgeWithDestination(Vertex vertex) {
+
+        ArrayList<Edge> edgesToDelete = new ArrayList<>();
+
         for (Edge edge: this.edgeList){
             if (edge.getEndVertex() == vertex){
-                this.removeEdge(edge);
+                edgesToDelete.add(edge);
             }
         }
+
+        for (Edge edge: edgesToDelete){
+            if (this.edgeList.contains(edge)){
+                this.edgeList.remove(edge);
+            }
+        }
+
     }
 
     @Override

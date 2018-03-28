@@ -23,7 +23,6 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
         // While spanning tree does not contain all vertices from graph
         while (!this.spanningTree.vertices.containsAll(this.inputNetwork.vertices)){
 
-            // TODO: fix graph method for this, not working
             // Choose the cheapest link from input graph
             this.currentEdge = this.inputNetwork.getCheapestEdge();
 
@@ -33,38 +32,52 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
                 // Add the link and its vertices to spanning tree
                 addLinkAndVertices();
             }
+            // Remove link from input network
             removeLinkFromInputNetwork();
         }
         return this.spanningTree;
     }
 
     private void removeLinkFromInputNetwork(){
-        Vertex tempStartVertex = this.currentEdge.getStartVertex();
-        Vertex tempEndVertex = this.currentEdge.getEndVertex();
-
         // Remove the link from the input network
         // Avoid concurrent modification threading issue
         for (Vertex vertex: this.inputNetwork.vertices){
-            if (vertex == tempStartVertex){
-                vertex.removeEdgeWithDestination(tempStartVertex);
+            if (vertex == this.currentEdge.getStartVertex()){
+                vertex.removeEdgeWithDestination(this.currentEdge.getEndVertex());
             }
-            if (vertex == tempEndVertex){
-                vertex.removeEdgeWithDestination(tempEndVertex);
+            vertex.removeEdge(this.currentEdge);
+            if (vertex == this.currentEdge.getEndVertex()){
+                vertex.removeEdgeWithDestination(this.currentEdge.getStartVertex());
             }
         }
     }
 
     private void addLinkAndVertices(){
-        Vertex newStartVertex = this.currentEdge.getStartVertex();
-        Vertex newEndVertex = this.currentEdge.getEndVertex();
-
-        newStartVertex.purge();
-        newStartVertex.addEdge(this.currentEdge);
-
-        newEndVertex.purge();
-        newEndVertex.addEdge(new Edge(this.currentEdge.getEndVertex(), this.currentEdge.getStartVertex(), new GeolocationWeightStrategy()) {});
-
-        this.spanningTree.addVertex(newStartVertex);
-        this.spanningTree.addVertex(newEndVertex);
+        if (!spanningTree.containsVertex(this.currentEdge.getStartVertex())){
+            Vertex newStartVertex = this.currentEdge.getStartVertex();
+            newStartVertex.purge();
+            newStartVertex.addEdge(this.currentEdge);
+            this.spanningTree.addVertex(newStartVertex);
+        } else {
+            for (Vertex vertex: this.spanningTree.vertices){
+                if (vertex.equals(this.currentEdge.getStartVertex())){
+                    if (!vertex.getEdges().contains(this.currentEdge)){
+                        vertex.addEdge(this.currentEdge);
+                    }
+                }
+            }
+        }
+        if (!spanningTree.containsVertex(this.currentEdge.getEndVertex())) {
+            Vertex newEndVertex = this.currentEdge.getEndVertex();
+            newEndVertex.purge();
+            newEndVertex.addEdge(new Edge(this.currentEdge.getEndVertex(), this.currentEdge.getStartVertex(), new GeolocationWeightStrategy()) {});
+            this.spanningTree.addVertex(newEndVertex);
+        } else {
+            for (Vertex vertex: this.spanningTree.vertices){
+                if (vertex.equals(this.currentEdge.getEndVertex())){
+                    vertex.addEdge(new Edge(this.currentEdge.getEndVertex(), this.currentEdge.getStartVertex(), new GeolocationWeightStrategy()) {});
+                }
+            }
+        }
     }
 }
