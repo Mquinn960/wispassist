@@ -1,8 +1,8 @@
-package main.java.com.mquinn.wispassist.application;
+package main.java.com.mquinn.wispassist.application.controllers;
 
 import javafx.event.ActionEvent;
 
-public class Controller {
+public class HomeController {
 
     public void pressButton(ActionEvent event){
         System.out.println("Something!");
