@@ -22,5 +22,5 @@
 hs_err_pid*
 
 # Binaries
-\src\main\java\com\mquinn\wispassist\resources\images\*
-\src\main\java\com\mquinn\wispassist\resources\fonts\*
+src/main/java/com/mquinn/wispassist/resources/images/*
+src/main/java/com/mquinn/wispassist/resources/fonts/*
