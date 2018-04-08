@@ -50,6 +50,7 @@ public abstract class Graph implements IGraph {
         }
     }
 
+    // TODO: fix method, looping issue
     @Override
     public Edge getCheapestEdge() {
         double weight = Integer.MAX_VALUE;
