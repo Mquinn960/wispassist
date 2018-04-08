@@ -8,7 +8,7 @@ public abstract class Vertex implements IVertex {
     private List<Edge> edgeList;
     private double distanceFromSource;
     private Vertex previousVertex;
-    private Edge edgeToRemove;
+    private boolean edgefound = false;
 
     public Vertex(){
         this.edgeList = new ArrayList<>();
@@ -23,8 +23,18 @@ public abstract class Vertex implements IVertex {
     @Override
     public boolean addEdge(Edge newEdge){
         if (newEdge.startVertex == this && !edgeList.contains(newEdge)){
-            this.edgeList.add(newEdge);
-            return true;
+            // if start and end vertices arent in edgelist
+            for (Edge edge: this.edgeList){
+                if (edge.getStartVertex() == newEdge.getStartVertex() && edge.getEndVertex() == newEdge.getEndVertex()) {
+                    this.edgefound = true;
+                }
+            }
+            if (this.edgefound = true){
+                this.edgeList.add(newEdge);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

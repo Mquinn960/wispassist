@@ -4,6 +4,7 @@ import main.java.com.mquinn.wispassist.planning.graphing.Edge;
 import main.java.com.mquinn.wispassist.planning.graphing.Graph;
 import main.java.com.mquinn.wispassist.planning.graphing.Vertex;
 import main.java.com.mquinn.wispassist.planning.networking.device.Device;
+import main.java.com.mquinn.wispassist.planning.networking.link.AutoLinkNameStrategy;
 import main.java.com.mquinn.wispassist.planning.networking.link.GeolocationWeightStrategy;
 import main.java.com.mquinn.wispassist.planning.networking.link.Link;
 
@@ -78,7 +79,7 @@ public class Network extends Graph implements INetwork {
     public void makeUndirected() {
         for (Vertex vertex : this.vertices) {
             for (Edge edge : vertex.getEdges()) {
-                edge.getEndVertex().addEdge(new Edge(edge.getEndVertex(), edge.getStartVertex(), new GeolocationWeightStrategy()) {
+                edge.getEndVertex().addEdge(new Link(edge.getEndVertex(), edge.getStartVertex(), new AutoLinkNameStrategy(), new GeolocationWeightStrategy()) {
                 });
             }
         }

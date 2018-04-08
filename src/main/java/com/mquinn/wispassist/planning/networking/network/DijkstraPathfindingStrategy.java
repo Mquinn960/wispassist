@@ -25,16 +25,16 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
     public ShortestPath calculatePath(Network network, Vertex startVertex, Vertex endVertex) {
 
         this.endVertex = endVertex;
+        if (!this.isDirected) {
+            network.makeUndirected();
+            //for (Edge edge : vertex.getEdges()) {
+            //    edge.getEndVertex().addEdge(new Edge(edge.getEndVertex(), edge.getStartVertex(), new GeolocationWeightStrategy()){});
+            //}
+        }
 
         // Set all input non source vertex weights to "infinite"
         // Set source weight to 0
         for (Vertex vertex : network.vertices){
-            // To simulate undirected graphs, add edges opposite to current edges
-            if (!this.isDirected) {
-                for (Edge edge : vertex.getEdges()) {
-                    edge.getEndVertex().addEdge(new Edge(edge.getEndVertex(), edge.getStartVertex(), new GeolocationWeightStrategy()){});
-                }
-            }
             this.provisionalVertices.add(vertex);
             if (vertex.equals(startVertex)) {
                 vertex.setDistanceFromSource(0);

@@ -51,8 +51,13 @@ public abstract class Edge implements IEdge {
     }
 
     @Override
-    public void setWeight(double weight) {
+    public void setWeightStatic(double weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public double getWeightStatic() {
+        return this.weight;
     }
 
     @Override

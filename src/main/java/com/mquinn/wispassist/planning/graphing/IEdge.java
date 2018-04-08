@@ -18,6 +18,7 @@ public interface IEdge {
     void setIWeightStrategy(IWeightStrategy IWeightStrategy);
 
     double getWeight();
-    void setWeight(double weight);
+    void setWeightStatic(double weight);
+    double getWeightStatic();
 
 }
