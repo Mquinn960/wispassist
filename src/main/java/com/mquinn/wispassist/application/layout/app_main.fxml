@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #00AA8D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.mquinn.wispassist.application.controllers.MainController">
+   <children>
+      <JFXButton fx:id="btnExit" layoutX="903.0" layoutY="19.0" onAction="#exitButtonAction" text="Exit" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="42.0" fitWidth="39.0" layoutX="33.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/images/logo.png" />
+         </image>
+      </ImageView>
+      <ScrollPane layoutX="21.0" layoutY="85.0" prefHeight="693.0" prefWidth="959.0" />
+   </children>
+</AnchorPane>
