@@ -4,7 +4,6 @@ public class UndirectedNetworkPrintStrategy extends GeneralNetworkPrintStrategy 
 
     @Override
     public void printNetwork(Network network) {
-        network.makeUndirected();
         super.printNetwork(network);
     }
 

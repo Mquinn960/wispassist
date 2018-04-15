@@ -15,22 +15,14 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
     private Vertex currentVertex = new Vertex(){};
     private Vertex nextAdjacentVertex = new Vertex(){};
     private Vertex endVertex = new Vertex(){};
-    private boolean isDirected;
 
-    public DijkstraPathfindingStrategy(boolean isDirected){
-        this.isDirected = isDirected;
+    public DijkstraPathfindingStrategy(){
     }
 
     @Override
     public ShortestPath calculatePath(Network network, Vertex startVertex, Vertex endVertex) {
 
         this.endVertex = endVertex;
-        if (!this.isDirected) {
-            network.makeUndirected();
-            //for (Edge edge : vertex.getEdges()) {
-            //    edge.getEndVertex().addEdge(new Edge(edge.getEndVertex(), edge.getStartVertex(), new GeolocationWeightStrategy()){});
-            //}
-        }
 
         // Set all input non source vertex weights to "infinite"
         // Set source weight to 0

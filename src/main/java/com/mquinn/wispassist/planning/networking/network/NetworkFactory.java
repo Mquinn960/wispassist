@@ -13,14 +13,16 @@ public class NetworkFactory {
     public Network createNetwork(String networkType){
         if (networkType.equals("directed")){
             return new Network(new DirectedAdjacencyMatrixStrategy(),
-                               new DijkstraPathfindingStrategy(true),
+                               new DijkstraPathfindingStrategy(),
                                new MinimumCostArboresenceMinimumSpanningTreeStrategy(),
-                               new DirectedNetworkPrintStrategy());
+                               new DirectedNetworkPrintStrategy(),
+                               true);
         } else if (networkType.equals("undirected")) {
             return new Network(new UndirectedAdjacencyMatrixStrategy(),
-                               new DijkstraPathfindingStrategy(false),
+                               new DijkstraPathfindingStrategy(),
                                new KruskalMinimumSpanningTreeStrategy(),
-                               new UndirectedNetworkPrintStrategy());
+                               new UndirectedNetworkPrintStrategy(),
+                               false);
         }
         return null;
     }

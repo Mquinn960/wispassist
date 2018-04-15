@@ -24,4 +24,8 @@ public class ShortestPath extends LinkedList {
         }
     }
 
+    public LinkedList<Vertex> getPath(){
+        return this.shortestPath;
+    }
+
 }

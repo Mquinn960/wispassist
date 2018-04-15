@@ -1,19 +1,31 @@
-package main.java.com.mquinn.wispassist;
+package test.java.com.mquinn.wispassist;
 
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import main.java.com.mquinn.wispassist.planning.PlanningService;
+import main.java.com.mquinn.wispassist.planning.graphing.Vertex;
 import main.java.com.mquinn.wispassist.planning.networking.device.Device;
 import main.java.com.mquinn.wispassist.planning.networking.network.Network;
-import main.java.com.mquinn.wispassist.planning.networking.network.ShortestPath;
+
+import java.util.LinkedList;
 
 /**
- * Console manual app test stub for debugging
- *
+ * Dijkstra shortest path algorithm test
  */
-public class App_old
-{
-    public static void main( String[] args )
+public class DijkstraPathTest extends TestCase {
+
+    public DijkstraPathTest( String testName )
     {
-        System.out.println( "Program Start" );
+        super( testName );
+    }
+
+    public static Test suite()
+    {
+        return new TestSuite( DijkstraPathTest.class );
+    }
+
+    public void testShortestPath() {
 
         PlanningService wispPlanner = new PlanningService();
 
@@ -21,19 +33,19 @@ public class App_old
 
         // Create Devices
         Device kilmarnockDevice = wispPlanner.getDeviceFactory().createDeviceManual("Kilmarnock", 55.63211, -4.4948706,
-                                                                                    false);
+                false);
         Device ayrDevice = wispPlanner.getDeviceFactory().createDeviceManual("Ayr", 55.4589475, -4.6376457,
-                                                                             false);
+                false);
         Device hamiltonDevice = wispPlanner.getDeviceFactory().createDeviceManual("Hamilton", 55.780579, -4.0503397,
-                                                                                  false);
+                false);
         Device glasgowDevice = wispPlanner.getDeviceFactory().createDeviceManual("Glasgow", 55.8607185, -4.281704,
-                                                                                 false);
+                false);
         Device edinburghDevice = wispPlanner.getDeviceFactory().createDeviceManual("Edinburgh", 55.9411885, -3.2753779,
-                                                                                   false);
+                false);
         Device prestwickDevice = wispPlanner.getDeviceFactory().createDeviceManual("Prestwick", 55.500032, -4.6167643,
-                                                                                   false);
+                false);
         Device cumnockDevice = wispPlanner.getDeviceFactory().createDeviceManual("Cumnock", 55.4521378, -4.2740314,
-                                                                                 false);
+                false);
 
         // Add links between devices
         kilmarnockDevice.addEdge(wispPlanner.getLinkFactory().createLinkAuto(kilmarnockDevice, ayrDevice));
@@ -57,18 +69,17 @@ public class App_old
 
         scotlandNetwork.makeUndirected();
 
-        // Print network configuration and adjacency matrix
-        scotlandNetwork.printNetwork();
-        scotlandNetwork.printAdjMatrix(false);
+        LinkedList<Vertex> path = scotlandNetwork.calculatePath(glasgowDevice,ayrDevice).getPath();
 
-        // Calculate and print shortest path between two nodes
-        ShortestPath path = scotlandNetwork.calculatePath(glasgowDevice,ayrDevice);
-        path.printPath();
+        assertTrue(path.contains(ayrDevice));
+        assertTrue(path.contains(glasgowDevice));
+        assertTrue(path.contains(hamiltonDevice));
 
-        // Calculate and print minimum spanning tree
-        Network minimumSpanningTree = scotlandNetwork.calculateSpanningTree();
-        minimumSpanningTree.printNetwork();
+        assertFalse(path.contains(cumnockDevice));
+        assertFalse(path.contains(edinburghDevice));
+        assertFalse(path.contains(kilmarnockDevice));
+        assertFalse(path.contains(prestwickDevice));
 
-        System.out.println("Program End");
     }
+
 }

@@ -18,12 +18,14 @@ public class Network extends Graph implements INetwork {
     private ISpanningTreeStrategy spanningTreeStrategy;
     private INetworkPrintStrategy networkPrintStrategy;
     private Edge cheapestLink;
+    private boolean isDirected;
 
-    public Network(IAdjacencyMatrixStrategy adjMatrixStrategy, IPathfindingStrategy pathfindingStrategy, ISpanningTreeStrategy spanningTreeStrategy, INetworkPrintStrategy networkPrintStrategy){
+    public Network(IAdjacencyMatrixStrategy adjMatrixStrategy, IPathfindingStrategy pathfindingStrategy, ISpanningTreeStrategy spanningTreeStrategy, INetworkPrintStrategy networkPrintStrategy, boolean isDirected){
         this.adjMatrixStrategy = adjMatrixStrategy;
         this.pathfindingStrategy = pathfindingStrategy;
         this.spanningTreeStrategy = spanningTreeStrategy;
         this.networkPrintStrategy = networkPrintStrategy;
+        this.isDirected = isDirected;
     }
 
     @Override
@@ -42,6 +44,10 @@ public class Network extends Graph implements INetwork {
         for (int[] adjMatrix : this.adjMatrixStrategy.calcAdjacencyMatrix(this, printSteps)) {
             System.out.println(Arrays.toString(adjMatrix));
         }
+    }
+
+    public int[][] getAdjMatrix(){
+        return this.adjMatrixStrategy.calcAdjacencyMatrix(this, false);
     }
 
     @Override
@@ -77,10 +83,12 @@ public class Network extends Graph implements INetwork {
 
     @Override
     public void makeUndirected() {
-        for (Vertex vertex : this.vertices) {
-            for (Edge edge : vertex.getEdges()) {
-                edge.getEndVertex().addEdge(new Link(edge.getEndVertex(), edge.getStartVertex(), new AutoLinkNameStrategy(), new GeolocationWeightStrategy()) {
-                });
+        if (!this.isDirected){
+            for (Vertex vertex : this.vertices) {
+                for (Edge edge : vertex.getEdges()) {
+                    edge.getEndVertex().addEdge(new Link(edge.getEndVertex(), edge.getStartVertex(), new AutoLinkNameStrategy(), new GeolocationWeightStrategy()) {
+                    });
+                }
             }
         }
     }

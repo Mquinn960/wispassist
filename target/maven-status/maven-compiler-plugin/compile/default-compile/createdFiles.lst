@@ -2,6 +2,7 @@ main\java\com\mquinn\wispassist\planning\networking\network\UndirectedAdjacencyM
 main\java\com\mquinn\wispassist\planning\graphing\Edge.class
 main\java\com\mquinn\wispassist\planning\networking\link\IWeightStrategy.class
 main\java\com\mquinn\wispassist\planning\networking\network\IAdjacencyMatrixStrategy.class
+main\java\com\mquinn\wispassist\application\controllers\MainController.class
 main\java\com\mquinn\wispassist\planning\networking\network\INetwork.class
 main\java\com\mquinn\wispassist\planning\networking\network\DirectedNetworkPrintStrategy.class
 main\java\com\mquinn\wispassist\planning\networking\network\KruskalMinimumSpanningTreeStrategy$1.class
@@ -30,7 +31,7 @@ main\java\com\mquinn\wispassist\planning\networking\device\IDevice.class
 main\java\com\mquinn\wispassist\planning\networking\device\Device.class
 main\java\com\mquinn\wispassist\planning\networking\link\Link.class
 main\java\com\mquinn\wispassist\planning\networking\network\DijkstraPathfindingStrategy$4.class
-main\java\com\mquinn\wispassist\application\Controller.class
+main\java\com\mquinn\wispassist\application\controllers\HomeController.class
 main\java\com\mquinn\wispassist\App.class
 main\java\com\mquinn\wispassist\planning\graphing\Vertex.class
 main\java\com\mquinn\wispassist\planning\networking\network\DijkstraPathfindingStrategy$1.class
