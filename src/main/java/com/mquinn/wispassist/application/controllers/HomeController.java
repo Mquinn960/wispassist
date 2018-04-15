@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import main.java.com.mquinn.wispassist.planning.PlanningService;
 
 import java.io.IOException;
 
@@ -19,6 +20,8 @@ public class HomeController {
     @FXML
     public void startButtonAction(ActionEvent event){
         try {
+            PlanningService.getInstance().getMainNetwork();
+
             Parent main = FXMLLoader.load(getClass().getResource("../layout/app_main.fxml"));
             Scene mainScene = new Scene(main);
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

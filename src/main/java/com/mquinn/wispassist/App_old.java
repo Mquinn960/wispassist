@@ -15,7 +15,7 @@ public class App_old
     {
         System.out.println( "Program Start" );
 
-        PlanningService wispPlanner = new PlanningService();
+        PlanningService wispPlanner = PlanningService.getInstance();
 
         Network scotlandNetwork = wispPlanner.getNetworkFactory().createNetwork("undirected");
 

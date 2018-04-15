@@ -26,7 +26,7 @@ public class AdjacencyMatrixTest extends TestCase {
 
     public void testAdjacencyMatrix() {
 
-        PlanningService wispPlanner = new PlanningService();
+        PlanningService wispPlanner = PlanningService.getInstance();
 
         Network scotlandNetwork = wispPlanner.getNetworkFactory().createNetwork("undirected");
 

@@ -24,7 +24,7 @@ public class GeolocationWeightStrategyTest extends TestCase {
 
     public void testSimpleHaversine() {
 
-        PlanningService planningService = new PlanningService();
+        PlanningService planningService = PlanningService.getInstance();
 
         Device device1 = planningService.getDeviceFactory().createDeviceManual("Device 1", 55.63211, -4.4948706,
                 false);

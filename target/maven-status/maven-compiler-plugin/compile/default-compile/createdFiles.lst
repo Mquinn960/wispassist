@@ -16,6 +16,7 @@ main\java\com\mquinn\wispassist\planning\graphing\Graph.class
 main\java\com\mquinn\wispassist\planning\networking\network\INetworkPrintStrategy.class
 main\java\com\mquinn\wispassist\planning\graphing\IVertex.class
 main\java\com\mquinn\wispassist\planning\networking\link\ILink.class
+main\java\com\mquinn\wispassist\application\controllers\LinkController.class
 main\java\com\mquinn\wispassist\App_old.class
 main\java\com\mquinn\wispassist\planning\networking\network\NetworkFactory.class
 main\java\com\mquinn\wispassist\planning\networking\network\DijkstraPathfindingStrategy$3.class
@@ -32,6 +33,7 @@ main\java\com\mquinn\wispassist\planning\networking\device\Device.class
 main\java\com\mquinn\wispassist\planning\networking\link\Link.class
 main\java\com\mquinn\wispassist\planning\networking\network\DijkstraPathfindingStrategy$4.class
 main\java\com\mquinn\wispassist\application\controllers\HomeController.class
+main\java\com\mquinn\wispassist\application\controllers\DeviceController.class
 main\java\com\mquinn\wispassist\App.class
 main\java\com\mquinn\wispassist\planning\graphing\Vertex.class
 main\java\com\mquinn\wispassist\planning\networking\network\DijkstraPathfindingStrategy$1.class

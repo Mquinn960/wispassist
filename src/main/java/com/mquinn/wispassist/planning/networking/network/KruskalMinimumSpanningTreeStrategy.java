@@ -17,7 +17,7 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
         this.inputNetwork = network;
         this.inputNetwork.makeUndirected();
 
-        PlanningService planningService = new PlanningService();
+        PlanningService planningService = PlanningService.getInstance();
         this.spanningTree = planningService.getNetworkFactory().createNetwork("undirected");
 
         // While spanning tree does not contain all vertices from graph
