@@ -22,18 +22,22 @@ public class DeviceController {
     @FXML
     public void addDevice(ActionEvent event){
 
-        try {
-            Device newDevice = PlanningService.getInstance().getDeviceFactory().createDeviceManual(txtDeviceName.getText(),
-                    Double.parseDouble(txtLatitude.getText()),
-                    Double.parseDouble(txtLongitude.getText()),
-                    false);
+        if (!txtDeviceName.getText().isEmpty() &&
+            !txtLatitude.getText().isEmpty() &&
+            !txtLongitude.getText().isEmpty()){
+            try {
+                Device newDevice = PlanningService.getInstance().getDeviceFactory().createDeviceManual(txtDeviceName.getText(),
+                        Double.parseDouble(txtLatitude.getText()),
+                        Double.parseDouble(txtLongitude.getText()),
+                        false);
 
-            PlanningService.getInstance().getMainNetwork().addVertex(newDevice);
+                PlanningService.getInstance().getMainNetwork().addVertex(newDevice);
 
-            Stage stage = (Stage) btnAdd.getScene().getWindow();
-            stage.close();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+                Stage stage = (Stage) btnAdd.getScene().getWindow();
+                stage.close();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
 
     }

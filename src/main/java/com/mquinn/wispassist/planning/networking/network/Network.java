@@ -103,4 +103,15 @@ public class Network extends Graph implements INetwork {
         this.networkPrintStrategy.printNetwork(this);
     }
 
+    public Device getDeviceWithName(String deviceName){
+        for (Vertex vertex: this.vertices){
+            if (vertex instanceof Device){
+                if (((Device) vertex).getDeviceName().equals(deviceName)){
+                    return (Device) vertex;
+                }
+            }
+        }
+        return null;
+    }
+
 }

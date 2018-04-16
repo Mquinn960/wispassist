@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.*?>
-<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #00AA8D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.mquinn.wispassist.application.controllers.MainController">
+<?import com.lynden.gmapsfx.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #00AA8D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.mquinn.wispassist.application.controllers.MainController">
    <children>
       <JFXButton fx:id="btnExit" layoutX="903.0" layoutY="19.0" onAction="#exitButtonAction" text="Exit" textFill="WHITE">
          <font>
@@ -20,7 +19,6 @@
             <Image url="@../../resources/images/logo.png" />
          </image>
       </ImageView>
-      <ScrollPane fx:id="mapPane" layoutX="21.0" layoutY="85.0" prefHeight="692.0" prefWidth="678.0" />
       <JFXButton fx:id="btnAddDevice" layoutX="97.0" layoutY="19.0" onAction="#addDeviceButtonAction" text="Add Device" textFill="WHITE">
          <font>
             <Font size="26.0" />
@@ -29,7 +27,7 @@
          <font>
             <Font size="26.0" />
          </font></JFXButton>
-      <TableView fx:id="tblDevices" layoutX="719.0" layoutY="85.0" onMouseClicked="#refreshData" prefHeight="692.0" prefWidth="261.0">
+      <TableView fx:id="tblDevices" layoutX="719.0" layoutY="85.0" onMouseClicked="#refreshData" prefHeight="323.0" prefWidth="259.0">
         <columns>
           <TableColumn fx:id="colDeviceName" prefWidth="112.0" text="Device Name" />
           <TableColumn fx:id="colLat" prefWidth="70.0" text="Lat" />
@@ -41,5 +39,12 @@
             <Font size="26.0" />
          </font>
       </JFXButton>
+      <TableView fx:id="tblLinks" layoutX="719.0" layoutY="429.0" prefHeight="348.0" prefWidth="259.0">
+        <columns>
+          <TableColumn fx:id="colLinkName" prefWidth="157.0" text="Link Name" />
+          <TableColumn fx:id="colLinkWeight" prefWidth="101.0" text="Distance" />
+        </columns>
+      </TableView>
+       <GoogleMapView fx:id="mapView" prefHeight="690.0" prefWidth="670.0" AnchorPane.leftAnchor="22" AnchorPane.topAnchor="86"/>
    </children>
 </AnchorPane>
