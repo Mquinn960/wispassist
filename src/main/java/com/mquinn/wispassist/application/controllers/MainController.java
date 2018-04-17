@@ -3,6 +3,8 @@ package main.java.com.mquinn.wispassist.application.controllers;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
+import com.lynden.gmapsfx.shapes.Polyline;
+import com.lynden.gmapsfx.shapes.PolylineOptions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,13 +26,14 @@ import main.java.com.mquinn.wispassist.planning.networking.link.Link;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable, MapComponentInitializedListener {
 
     @FXML
-    public Button btnExit, btnAddDevice, btnAddLink, btnRefresh;
+    public Button btnExit, btnAddDevice, btnAddLink, btnRefresh, btnShortestPath, btnMinimumNetwork;
     @FXML
     public TableView tblDevices, tblLinks;
     @FXML
@@ -44,6 +47,36 @@ public class MainController implements Initializable, MapComponentInitializedLis
     public void exitButtonAction(ActionEvent event){
         Stage stage = (Stage) btnExit.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    public void shortestPathButtonAction(ActionEvent event){
+        try {
+            Parent add = FXMLLoader.load(getClass().getResource("../layout/app_shortest_route.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Shortest Path");
+            stage.setScene(new Scene(add, 1000, 800));
+            stage.show();
+            // Hide current window if necessary
+            //((Node)(event.getSource())).getScene().getWindow().hide();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void minimumNetworkButtonAction(ActionEvent event){
+        try {
+            Parent add = FXMLLoader.load(getClass().getResource("../layout/app_minimum_network.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Minimum Network");
+            stage.setScene(new Scene(add, 450, 450));
+            stage.show();
+            // Hide current window if necessary
+            //((Node)(event.getSource())).getScene().getWindow().hide();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -122,44 +155,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
 
     private void refreshGraphPane(){
 
-        LinkedList<Marker> markers = new LinkedList<>();
-
-        for (Vertex vertex: PlanningService.getInstance().getMainNetwork().vertices){
-            if (vertex instanceof Device){
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(new LatLong(((Device) vertex).getLatitude(), ((Device) vertex).getLongitude()));
-                map.addMarker(new Marker(markerOptions));
-            }
-        }
-
-//        LatLong joshAndersonLocation = new LatLong(47.6297, -122.3431);
-//        LatLong bobUnderwoodLocation = new LatLong(47.6397, -122.3031);
-//        LatLong tomChoiceLocation = new LatLong(47.6497, -122.3325);
-//        LatLong fredWilkieLocation = new LatLong(47.6597, -122.3357);
-//
-//        MarkerOptions markerOptions2 = new MarkerOptions();
-//        markerOptions2.position(joshAndersonLocation);
-//
-//        MarkerOptions markerOptions3 = new MarkerOptions();
-//        markerOptions3.position(bobUnderwoodLocation);
-//
-//        MarkerOptions markerOptions4 = new MarkerOptions();
-//        markerOptions4.position(tomChoiceLocation);
-//
-//        MarkerOptions markerOptions5 = new MarkerOptions();
-//        markerOptions5.position(fredWilkieLocation);
-//
-
-//        Marker joshAndersonMarker = new Marker(markerOptions2);
-//        Marker bobUnderwoodMarker = new Marker(markerOptions3);
-//        Marker tomChoiceMarker= new Marker(markerOptions4);
-//        Marker fredWilkieMarker = new Marker(markerOptions5);
-//
-
-//        map.addMarker( joshAndersonMarker );
-//        map.addMarker( bobUnderwoodMarker );
-//        map.addMarker( tomChoiceMarker );
-//        map.addMarker( fredWilkieMarker );
+        mapInitialized();
 
     }
 
@@ -179,6 +175,43 @@ public class MainController implements Initializable, MapComponentInitializedLis
                 .zoom(4.25);
 
         map = mapView.createMap(mapOptions);
+
+        ArrayList<LatLong> markers = new ArrayList<>();
+
+        for (Vertex vertex: PlanningService.getInstance().getMainNetwork().vertices){
+            if (vertex instanceof Device){
+                MarkerOptions markerOptions = new MarkerOptions();
+                LatLong latLong = new LatLong(((Device) vertex).getLatitude(), ((Device) vertex).getLongitude());
+                markerOptions.position(latLong);
+                map.addMarker(new Marker(markerOptions));
+                markers.add(latLong);
+            }
+        }
+
+        for (Vertex vertex: PlanningService.getInstance().getMainNetwork().vertices){
+            for (Edge edge: vertex.getEdges()){
+                if (edge instanceof Link){
+                    if (edge.getStartVertex() instanceof Device && edge.getEndVertex() instanceof Device){
+                        LatLong startDevice = new LatLong(((Device) edge.getStartVertex()).getLatitude(), ((Device) edge.getStartVertex()).getLongitude());
+                        LatLong endDevice = new LatLong(((Device) edge.getEndVertex()).getLatitude(), ((Device) edge.getEndVertex()).getLongitude());
+                        LatLong[] coordArray = new LatLong[]{startDevice,endDevice};
+                        MVCArray mvcArray = new MVCArray(coordArray);
+                        PolylineOptions polylineOptions = new PolylineOptions()
+                                .path(mvcArray)
+                                .strokeColor("red")
+                                .strokeWeight(2);
+                        Polyline link = new Polyline(polylineOptions);
+                        map.addMapShape((MapShape) link);
+                    }
+                }
+            }
+        }
+
+        LatLongBounds latLongBounds = new LatLongBounds();
+        for (LatLong latLong : markers) {
+            latLongBounds.extend(latLong);
+        }
+        map.fitBounds(latLongBounds);
 
     }
 

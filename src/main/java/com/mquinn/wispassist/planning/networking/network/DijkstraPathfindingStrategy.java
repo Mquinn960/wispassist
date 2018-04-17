@@ -73,7 +73,8 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
     private ShortestPath assemblePath(Vertex destination){
         this.shortestPath.add(destination);
         addPreviousVertex(destination);
-        this.shortestPath = reversePath(this.shortestPath);
+        LinkedList<Vertex> pathToReverse = this.shortestPath;
+        this.shortestPath = reversePath(pathToReverse);
         return new ShortestPath(this.shortestPath);
     }
 
@@ -87,7 +88,7 @@ public class DijkstraPathfindingStrategy implements IPathfindingStrategy {
     private LinkedList<Vertex> reversePath(LinkedList<Vertex> shortestPath){
         LinkedList<Vertex> newShortestPath = new LinkedList<Vertex>(){};
 
-        Iterator<Vertex> pathWalker = this.shortestPath.descendingIterator();
+        Iterator<Vertex> pathWalker = shortestPath.descendingIterator();
 
         while (pathWalker.hasNext()){
             newShortestPath.add(pathWalker.next());
