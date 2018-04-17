@@ -15,7 +15,7 @@ public interface INetwork {
     ShortestPath calculatePath(Vertex startVertex, Vertex endVertex);
 
     void setSpanningTreeStrategy(ISpanningTreeStrategy spanningTreeStrategy);
-    Network calculateSpanningTree();
+    Network calculateSpanningTree(Vertex startVertex);
 
     void makeUndirected();
 

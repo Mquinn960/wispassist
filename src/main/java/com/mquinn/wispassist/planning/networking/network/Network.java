@@ -66,8 +66,8 @@ public class Network extends Graph implements INetwork {
     }
 
     @Override
-    public Network calculateSpanningTree() {
-        return this.spanningTreeStrategy.calculateSpanningTree(this);
+    public Network calculateSpanningTree(Vertex startVertex) {
+        return this.spanningTreeStrategy.calculateSpanningTree(this, startVertex);
     }
 
     @Override

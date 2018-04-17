@@ -20,7 +20,7 @@ public class NetworkFactory {
         } else if (networkType.equals("undirected")) {
             return new Network(new UndirectedAdjacencyMatrixStrategy(),
                                new DijkstraPathfindingStrategy(),
-                               new KruskalMinimumSpanningTreeStrategy(),
+                               new PrimMinimumSpanningTreeStrategy(),
                                new UndirectedNetworkPrintStrategy(),
                                false);
         }

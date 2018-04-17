@@ -66,7 +66,7 @@ public class App_old
         path.printPath();
 
         // Calculate and print minimum spanning tree
-        Network minimumSpanningTree = scotlandNetwork.calculateSpanningTree();
+        Network minimumSpanningTree = scotlandNetwork.calculateSpanningTree(kilmarnockDevice);
         minimumSpanningTree.printNetwork();
 
         System.out.println("Program End");

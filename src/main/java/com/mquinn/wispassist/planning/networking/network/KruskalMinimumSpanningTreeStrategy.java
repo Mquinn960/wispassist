@@ -12,7 +12,7 @@ public class KruskalMinimumSpanningTreeStrategy implements ISpanningTreeStrategy
     private Edge currentEdge;
 
     @Override
-    public Network calculateSpanningTree(Network network) {
+    public Network calculateSpanningTree(Network network, Vertex startvertex) {
 
         this.inputNetwork = network;
         this.inputNetwork.makeUndirected();

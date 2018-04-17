@@ -18,6 +18,7 @@ import main.java.com.mquinn.wispassist.planning.graphing.Vertex;
 import main.java.com.mquinn.wispassist.planning.networking.device.Device;
 import main.java.com.mquinn.wispassist.planning.networking.network.ShortestPath;
 
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -36,7 +37,14 @@ public class RouteController implements Initializable, MapComponentInitializedLi
 
     private LinkedList<Vertex> path;
 
+    private ArrayList<Marker> markerArrayList;
+    private ArrayList<Polyline> shapeArrayList;
+
     private void addRouteLinks(Vertex vertex){
+
+        if (shapeArrayList == null){
+            shapeArrayList = new ArrayList<>();
+        }
 
         try {
             if (vertex != null && vertex.getPreviousVertex() != null){
@@ -49,6 +57,7 @@ public class RouteController implements Initializable, MapComponentInitializedLi
                         .strokeColor("blue")
                         .strokeWeight(2);
                 Polyline link = new Polyline(polylineOptions);
+                shapeArrayList.add(link);
                 map.addMapShape((MapShape) link);
                 addRouteLinks(vertex.getPreviousVertex());
             }
@@ -75,16 +84,34 @@ public class RouteController implements Initializable, MapComponentInitializedLi
 
         map = mapViewPath.createMap(mapOptions);
 
-        map.clearMarkers();
+        if (map != null && markerArrayList != null){
+            map.removeMarkers(markerArrayList);
+            map.clearMarkers();
+        }
+
+        if (map != null && shapeArrayList != null){
+            for (Polyline shape: shapeArrayList){
+                map.removeMapShape(shape);
+            }
+        }
+
+        if (map != null){
+            int currentZoom = map.getZoom();
+            map.setZoom( currentZoom - 1 );
+            map.setZoom( currentZoom );
+        }
 
         ArrayList<LatLong> markers = new ArrayList<>();
+        markerArrayList = new ArrayList<>();
 
         for (Object device: path){
             if (device != null){
                 MarkerOptions markerOptions = new MarkerOptions();
                 LatLong latLong = new LatLong(((Device) device).getLatitude(), ((Device) device).getLongitude());
                 markerOptions.position(latLong);
-                map.addMarker(new Marker(markerOptions));
+                Marker newMarker = new Marker(markerOptions);
+                markerArrayList.add(newMarker);
+                map.addMarker(newMarker);
                 markers.add(latLong);
             }
         }
