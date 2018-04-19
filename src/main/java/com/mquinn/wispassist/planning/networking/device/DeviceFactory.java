@@ -2,6 +2,8 @@ package main.java.com.mquinn.wispassist.planning.networking.device;
 
 import main.java.com.mquinn.wispassist.planning.PlanningService;
 
+import java.util.Random;
+
 public class DeviceFactory {
 
     private PlanningService planningService;
@@ -23,9 +25,20 @@ public class DeviceFactory {
     }
 
     // random implementation,
-    // TODO: implementation
     public Device createDeviceRandom(){
-        return new Device("random", 0.0, 0.0, false);
+
+        double rangeLatMin = -85;
+        double rangeLatMax = +85;
+
+        double rangeLongMin = -180;
+        double rangeLongMax = 180;
+
+        Random rand = new Random();
+        double randomLat = rangeLatMin + (rangeLatMax - rangeLatMin) * rand.nextDouble();
+        double randomLong = rangeLongMin + (rangeLongMax - rangeLongMin) * rand.nextDouble();
+
+        return new Device((String.valueOf(randomLat) + String.valueOf(randomLong)), randomLat, randomLong, false);
+
     }
 
 }

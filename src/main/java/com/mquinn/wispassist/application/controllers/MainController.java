@@ -54,7 +54,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
         try {
             Parent add = FXMLLoader.load(getClass().getResource("../layout/app_shortest_route.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Shortest Path");
+            stage.setTitle("Calculate Route");
             stage.setScene(new Scene(add, 1000, 800));
             stage.show();
             // Hide current window if necessary
@@ -67,9 +67,9 @@ public class MainController implements Initializable, MapComponentInitializedLis
     @FXML
     public void minimumNetworkButtonAction(ActionEvent event){
         try {
-            Parent add = FXMLLoader.load(getClass().getResource("../layout/app_minimum_network.fxml"));
+            Parent add = FXMLLoader.load(getClass().getResource("../layout/app_optimise_network.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Minimum Network");
+            stage.setTitle("Optimise Network");
             stage.setScene(new Scene(add, 450, 450));
             stage.show();
             // Hide current window if necessary

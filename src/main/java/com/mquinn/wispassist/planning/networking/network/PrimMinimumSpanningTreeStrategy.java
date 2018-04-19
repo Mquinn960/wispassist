@@ -4,88 +4,97 @@ import main.java.com.mquinn.wispassist.planning.PlanningService;
 import main.java.com.mquinn.wispassist.planning.graphing.Edge;
 import main.java.com.mquinn.wispassist.planning.graphing.Vertex;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PrimMinimumSpanningTreeStrategy implements ISpanningTreeStrategy {
 
     private Network spanningTree;
-    private Network inputNetwork;
 
-    private Vertex closestVertex;
-    private Vertex startVertex;
+    private Edge closestEdge;
 
     @Override
     public Network calculateSpanningTree(Network network, Vertex initialVertex) {
-        inputNetwork = network;
-        startVertex = initialVertex;
         spanningTree = PlanningService.getInstance().getNetworkFactory().createNetwork("undirected");
 
-        spanningTree.addVertex(initialVertex);
+        Edge firstEdge = getClosestEdge(initialVertex.getEdges(), true);
+        addEdgeToSpanningTree(firstEdge, true);
 
-        Vertex closestVertex = getClosestVertex();
+        List<Edge> edgeSet = new ArrayList<>();
+        for (Vertex vertex: network.vertices){
+            edgeSet.addAll(vertex.getEdges());
+        }
 
+        while (!spanningTree.vertices.containsAll(network.vertices)){
+            Edge closestEdge = getClosestEdge(edgeSet, false);
 
+            addEdgeToSpanningTree(closestEdge, false);
+            //edgeSet.remove(closestEdge);
+        }
 
-//
-//        this.endVertex = endVertex;
-//
-//        // Set all input non source vertex weights to "infinite"
-//        // Set source weight to 0
-//        for (Vertex vertex : network.vertices){
-//            this.provisionalVertices.add(vertex);
-//            if (vertex.equals(startVertex)) {
-//                vertex.setDistanceFromSource(0);
-//            } else {
-//                vertex.setDistanceFromSource(Integer.MAX_VALUE);
-//            }
-//        }
-//
-//        // While there are vertices to analyse and we have not already reached our destination
-//        while (!this.provisionalVertices.isEmpty() && !this.currentVertex.equals(this.endVertex) && !this.dijkstraTree.contains(this.endVertex)) {
-//
-//            // Take the first provisional vertex with the lowest distance from source
-//            this.currentVertex = getClosestProvisionalVertexToSource();
-//
-//            if (!this.currentVertex.equals(this.endVertex) && !this.nextAdjacentVertex.equals(this.endVertex)){
-//                // Mark this vertex as traversed by moving from the provisional queue to the final stack
-//                this.provisionalVertices.remove(this.currentVertex);
-//                this.dijkstraTree.add(this.currentVertex);
-//
-//                // For all the adjacent vertices to the current one
-//                for (Edge edge : this.currentVertex.getEdges()){
-//                    this.nextAdjacentVertex = edge.getEndVertex();
-//
-//                    // If the distance up to the current vertex from source plus the distance to the next vertex
-//                    // is less than the next adjacent vertex's own distance from the source
-//                    if ((this.currentVertex.getDistanceFromSource() + edge.getWeight()) < this.nextAdjacentVertex.getDistanceFromSource()){
-//                        // Update the next adjacent vertex's weight
-//                        this.nextAdjacentVertex.setDistanceFromSource(this.currentVertex.getDistanceFromSource() + edge.getWeight());
-//                        this.nextAdjacentVertex.setPreviousVertex(this.currentVertex);
-//                    }
-//                }
-//            } else {
-//                this.provisionalVertices.remove(this.currentVertex);
-//                this.dijkstraTree.add(this.currentVertex);
-//            }
-//
-//        }
-//
-//        // Return the stack of shortest path nodes to the destination
-//        return this.spanningTree;
-
+        spanningTree.makeUndirected();
         return spanningTree;
 
     }
 
-    private Vertex getClosestVertex(){
+    private Edge getClosestEdge(List<Edge> edges, boolean first){
 
-        for (Vertex vertex: inputNetwork.vertices){
-            for (Edge edge: vertex.getEdges()){
+        if (first){
+            double testWeight = Integer.MAX_VALUE;
+
+            for (Edge edge: edges){
                 if (!spanningTree.vertices.contains(edge.getEndVertex())){
-                    closestVertex = edge.getEndVertex();
+                    if (edge.getWeight() < testWeight){
+                        testWeight = edge.getWeight();
+                        closestEdge = edge;
+                    }
+                }
+            }
+        } else {
+            double testWeight = Integer.MAX_VALUE;
+
+            for (Edge edge: edges){
+                if (!spanningTree.vertices.contains(edge.getEndVertex()) && spanningTree.vertices.contains(edge.getStartVertex())){
+                    if (edge.getWeight() < testWeight){
+                        testWeight = edge.getWeight();
+                        closestEdge = edge;
+                    }
                 }
             }
         }
 
-        return closestVertex;
+        return closestEdge;
+    }
+
+    private void addEdgeToSpanningTree(Edge edge, boolean first){
+        if (first){
+            if (spanningTree.containsVertex(edge.getStartVertex())){
+                for (Vertex vertex: spanningTree.vertices){
+                    if (vertex == edge.getStartVertex()){
+                        vertex.addEdge(edge);
+                    }
+                }
+            } else {
+                spanningTree.addVertex(edge.getStartVertex());
+                edge.getStartVertex().addEdge(edge);
+            }
+            edge.getEndVertex().purge();
+            spanningTree.addVertex(edge.getEndVertex());
+        } else {
+            if (spanningTree.containsVertex(edge.getStartVertex())){
+                for (Vertex vertex: spanningTree.vertices){
+                    if (vertex == edge.getStartVertex()){
+                        vertex.addEdge(edge);
+                    }
+                }
+            } else {
+                edge.getStartVertex().purge();
+                spanningTree.addVertex(edge.getStartVertex());
+                edge.getStartVertex().addEdge(edge);
+            }
+            edge.getEndVertex().purge();
+            spanningTree.addVertex(edge.getEndVertex());
+        }
     }
 
 }
