@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import com.lynden.gmapsfx.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #00AA8D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.mquinn.wispassist.application.controllers.RouteController">
+   <children>
+      <JFXButton fx:id="btnExit" layoutX="880.0" layoutY="32.0" onAction="#exitButtonAction" text="Exit" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="cboDeviceEnd" layoutX="374.0" layoutY="32.0" prefHeight="56.0" prefWidth="264.0" promptText="End Device" style="-fx-font-size: 25px;" />
+      <JFXButton fx:id="btnConfirm" layoutX="677.0" layoutY="32.0" onAction="#confirmRoute" text="Calculate" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </JFXButton>
+      <GoogleMapView fx:id="mapViewPath" prefHeight="660.0" prefWidth="956.0" AnchorPane.leftAnchor="22" AnchorPane.topAnchor="120" />
+      <JFXComboBox fx:id="cboDeviceStart" layoutX="75.0" layoutY="32.0" prefHeight="56.0" prefWidth="264.0" promptText="Start Device" style="-fx-font-size: 25px;" />
+   </children>
+</AnchorPane>

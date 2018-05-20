@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.lynden.gmapsfx.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #00AA8D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.mquinn.wispassist.application.controllers.MainController">
+   <children>
+      <JFXButton fx:id="btnExit" layoutX="903.0" layoutY="19.0" onAction="#exitButtonAction" text="Exit" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="42.0" fitWidth="39.0" layoutX="33.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/images/logo.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btnAddDevice" layoutX="106.0" layoutY="25.0" onAction="#addDeviceButtonAction" text="Add Device" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="btnAddLink" layoutX="254.0" layoutY="25.0" onAction="#addLinkButtonAction" text="Add Link" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font></JFXButton>
+      <TableView fx:id="tblDevices" layoutX="719.0" layoutY="85.0" prefHeight="323.0" prefWidth="259.0">
+        <columns>
+          <TableColumn fx:id="colDeviceName" prefWidth="112.0" text="Device Name" />
+          <TableColumn fx:id="colLat" prefWidth="70.0" text="Lat" />
+            <TableColumn fx:id="colLong" prefWidth="75.0" text="Long" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="btnRefresh" layoutX="781.0" layoutY="19.0" onAction="#buttonRefreshData" text="Refresh" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="tblLinks" layoutX="719.0" layoutY="429.0" prefHeight="348.0" prefWidth="259.0">
+        <columns>
+          <TableColumn fx:id="colLinkName" prefWidth="157.0" text="Link Name" />
+          <TableColumn fx:id="colLinkWeight" prefWidth="101.0" text="Distance (km)" />
+        </columns>
+      </TableView>
+       <GoogleMapView fx:id="mapView" prefHeight="690.0" prefWidth="670.0" AnchorPane.leftAnchor="22" AnchorPane.topAnchor="86" />
+      <JFXButton fx:id="btnShortestPath" layoutX="382.0" layoutY="25.0" onAction="#shortestPathButtonAction" text="Calculate Route" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnMinimumNetwork" layoutX="563.0" layoutY="25.0" onAction="#minimumNetworkButtonAction" text="Optimise Network" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

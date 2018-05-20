@@ -1,0 +1,4 @@
+test\java\com\mquinn\wispassist\GeolocationWeightStrategyTest.class
+test\java\com\mquinn\wispassist\AppTest.class
+test\java\com\mquinn\wispassist\AdjacencyMatrixTest.class
+test\java\com\mquinn\wispassist\DijkstraPathTest.class
