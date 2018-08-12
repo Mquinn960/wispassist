@@ -1,6 +1,8 @@
 # WISP-Assist
 
-Wireless Internet Service Provider (WISP) Planning Software
+Wireless Internet Service Provider (WISP) Planning Software to model wireless mesh networks
+
+![Alt text](/preview.png?raw=true "Preview")
 
 ## Getting Started
 
