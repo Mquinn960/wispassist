@@ -36,7 +36,7 @@ Add additional notes about how to deploy this on a live system
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [Swing](https://docs.oracle.com/javase/tutorial/uiswing/) - User Interface Library
+* JavaFX - User Interface Library
 
 ## Contributing
 
