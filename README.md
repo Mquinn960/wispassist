@@ -29,10 +29,6 @@ Wireless Internet Service Provider (WISP) Planning Software to model wireless me
 
 * Run Maven unit test suite using ```mvn test -B```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
